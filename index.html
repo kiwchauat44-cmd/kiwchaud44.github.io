@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kiw Game</title>
+  <style>
+    body {
+      text-align: center;
+      background: #111;
+      color: white;
+      font-family: Arial;
+    }
+    #box {
+      width: 50px;
+      height: 50px;
+      background: red;
+      position: absolute;
+      top: 200px;
+      left: 200px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>เกมหลบขอบจอ</h1>
+<p>ใช้ปุ่มลูกศรขยับกล่อง</p>
+
+<div id="box"></div>
+
+<script>
+let box = document.getElementById("box");
+let x = 200;
+let y = 200;
+
+document.addEventListener("keydown", function(e){
+  if(e.key === "ArrowUp") y -= 10;
+  if(e.key === "ArrowDown") y += 10;
+  if(e.key === "ArrowLeft") x -= 10;
+  if(e.key === "ArrowRight") x += 10;
+
+  if(x < 0 || y < 0 || x > window.innerWidth-50 || y > window.innerHeight-50){
+    alert("แพ้แล้ว!");
+    x = 200;
+    y = 200;
+  }
+
+  box.style.left = x + "px";
+  box.style.top = y + "px";
+});
+</script>
+
+</body>
+</html>
