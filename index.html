@@ -5,504 +5,421 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Q-GPT Web</title>
   <style>
-    :root{
-      --bg:#0b1020;
-      --panel:#101729;
-      --panel-2:#16203a;
-      --text:#eef3ff;
-      --muted:#a5b4d6;
-      --line:rgba(255,255,255,.08);
-      --accent:#5ea0ff;
-      --accent-2:#7cc0ff;
-      --ok:#6ee7a8;
-      --warn:#ffd166;
-      --danger:#ff7b7b;
-      --shadow:0 12px 40px rgba(0,0,0,.28);
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Tahoma, sans-serif;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:Arial,Helvetica,sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(94,160,255,.12), transparent 30%),
-        linear-gradient(180deg,#09101d 0%, #0e1527 100%);
+
+    body {
+      background: linear-gradient(135deg, #0f172a, #1e293b, #0b1120);
+      color: #fff;
+      min-height: 100vh;
+      padding: 20px;
     }
-    .app{display:grid;grid-template-columns:280px 1fr 340px;min-height:100vh}
-    .left,.right{
-      background:rgba(10,15,28,.86);
-      backdrop-filter: blur(10px);
-      border-right:1px solid var(--line);
-      padding:18px;
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
     }
-    .right{border-right:0;border-left:1px solid var(--line)}
-    .main{display:flex;flex-direction:column;min-width:0}
-    .brand{
-      display:flex;align-items:center;gap:10px;font-weight:700;font-size:20px;margin-bottom:8px
+
+    .hero {
+      text-align: center;
+      margin-bottom: 24px;
     }
-    .logo{
-      width:40px;height:40px;border-radius:14px;
-      background:linear-gradient(135deg,var(--accent),var(--accent-2));
-      color:#061224;font-weight:900;display:grid;place-items:center
+
+    .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      color: #cbd5e1;
+      margin-bottom: 14px;
+      backdrop-filter: blur(8px);
     }
-    .sub{color:var(--muted);font-size:13px;line-height:1.5}
-    .card{
-      background:var(--panel);
-      border:1px solid var(--line);
-      border-radius:18px;
-      padding:14px;
-      box-shadow:var(--shadow);
-      margin-top:14px;
+
+    h1 {
+      font-size: 34px;
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, #38bdf8, #818cf8, #f472b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-    .stack{display:grid;gap:10px}
-    button, .btn{
-      border:0;cursor:pointer;
-      border-radius:14px;padding:12px 14px;
-      background:var(--accent);color:#04111f;
-      font-weight:700;font-size:14px;
+
+    .subtitle {
+      color: #cbd5e1;
+      font-size: 15px;
+      line-height: 1.6;
     }
-    .btn-secondary{
-      background:#1b2744;color:var(--text);border:1px solid var(--line)
+
+    .card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 22px;
+      padding: 18px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      margin-bottom: 18px;
     }
-    .example{
-      width:100%;text-align:left;background:#18243f;color:var(--text)
+
+    .label {
+      display: block;
+      margin-bottom: 10px;
+      color: #e2e8f0;
+      font-weight: 600;
+      font-size: 14px;
     }
-    .topbar{
-      display:flex;justify-content:space-between;align-items:center;
-      padding:16px 20px;border-bottom:1px solid var(--line);
-      background:rgba(9,16,29,.65);backdrop-filter: blur(10px);
-      position:sticky;top:0;z-index:3;
+
+    textarea, input, select {
+      width: 100%;
+      border: none;
+      outline: none;
+      border-radius: 16px;
+      padding: 14px;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      font-size: 15px;
+      border: 1px solid rgba(255,255,255,0.1);
     }
-    .pill{
-      display:inline-flex;align-items:center;gap:8px;
-      padding:8px 12px;border-radius:999px;
-      border:1px solid var(--line);background:#17233f;color:var(--muted);
-      font-size:12px
+
+    textarea {
+      min-height: 160px;
+      resize: vertical;
     }
-    .chat{
-      flex:1;max-width:980px;width:100%;margin:0 auto;
-      padding:20px 18px 120px;
+
+    textarea::placeholder,
+    input::placeholder {
+      color: #94a3b8;
     }
-    .msg{margin-bottom:18px}
-    .msg-head{font-size:12px;color:var(--muted);margin-bottom:6px}
-    .bubble{
-      border:1px solid var(--line);
-      background:var(--panel);
-      border-radius:20px;
-      padding:16px 18px;
-      line-height:1.7;
-      white-space:pre-wrap;
-      box-shadow:var(--shadow);
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
     }
-    .user .bubble{background:#15213b}
-    .assistant .bubble{background:#0f1628}
-    .composer-wrap{
-      position:sticky;bottom:0;background:linear-gradient(180deg, rgba(14,21,39,0), rgba(14,21,39,.94) 25%, rgba(14,21,39,.98));
-      padding:18px;
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
     }
-    .composer{
-      max-width:980px;margin:0 auto;
-      background:rgba(16,23,41,.96);border:1px solid var(--line);
-      border-radius:24px;padding:12px;box-shadow:var(--shadow)
+
+    button {
+      border: none;
+      outline: none;
+      border-radius: 14px;
+      padding: 12px 16px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
     }
-    .composer textarea{
-      width:100%;min-height:86px;resize:vertical;
-      background:transparent;border:0;outline:0;color:var(--text);font:inherit;
-      padding:10px 10px 4px;
+
+    button:hover {
+      transform: translateY(-1px);
+      opacity: 0.95;
     }
-    .composer-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:6px 6px 0}
-    .small{font-size:12px;color:var(--muted)}
-    .switch-row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
-    .switch{
-      width:48px;height:28px;border-radius:999px;background:#223252;position:relative;cursor:pointer;flex:0 0 auto
+
+    .primary {
+      background: linear-gradient(90deg, #38bdf8, #6366f1);
+      color: white;
     }
-    .switch::after{
-      content:"";position:absolute;top:3px;left:4px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s
+
+    .secondary {
+      background: rgba(255,255,255,0.12);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.1);
     }
-    .switch.active{background:var(--accent)}
-    .switch.active::after{left:22px}
-    .metric{margin-top:12px}
-    .metric-top{display:flex;justify-content:space-between;font-size:13px}
-    .bar{height:8px;border-radius:999px;background:#1a2645;overflow:hidden;margin-top:6px}
-    .fill{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
-    .tag{
-      display:inline-block;padding:6px 10px;border-radius:999px;
-      background:#1a2746;border:1px solid var(--line);font-size:12px;color:var(--muted)
+
+    .danger {
+      background: linear-gradient(90deg, #fb7185, #f43f5e);
+      color: white;
     }
-    .hr{height:1px;background:var(--line);margin:12px 0}
-    .hidden{display:none}
-    .mono{font-family:ui-monospace, SFMono-Regular, Menlo, monospace}
-    .notice{font-size:12px;color:var(--muted);line-height:1.6}
-    @media (max-width:1180px){
-      .app{grid-template-columns:280px 1fr}
-      .right{display:none}
+
+    .result-box {
+      min-height: 220px;
+      white-space: pre-wrap;
+      line-height: 1.7;
+      color: #e2e8f0;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 16px;
     }
-    @media (max-width:780px){
-      .app{grid-template-columns:1fr}
-      .left{display:none}
-      .chat{padding:14px 12px 120px}
-      .composer-wrap{padding:12px}
-      .topbar{padding:12px}
+
+    .status {
+      margin-top: 10px;
+      color: #93c5fd;
+      font-size: 14px;
+    }
+
+    .footer-note {
+      margin-top: 8px;
+      font-size: 13px;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .mini {
+      font-size: 13px;
+      color: #cbd5e1;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 999;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-content {
+      width: 100%;
+      max-width: 560px;
+      background: #0f172a;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 18px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    }
+
+    .modal-title {
+      font-size: 22px;
+      margin-bottom: 14px;
+    }
+
+    .input-group {
+      margin-bottom: 12px;
+    }
+
+    .tips {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #94a3b8;
+      background: rgba(255,255,255,0.05);
+      padding: 12px;
+      border-radius: 14px;
+    }
+
+    @media (max-width: 720px) {
+      .row {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .actions button {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="app">
-    <aside class="left">
-      <div class="brand"><div class="logo">Q</div>Q-GPT Web</div>
-      <div class="sub">หน้าแชตแนว GPT ที่ให้ระบบ Q ทำงานเบื้องหลัง แล้วตอบแบบอ่านง่ายด้านหน้า</div>
+  <div class="container">
+    <div class="topbar">
+      <div class="mini">Q-GPT Web • วิเคราะห์ • สรุป • เปรียบเทียบ</div>
+      <button class="secondary" onclick="openSettings()">⚙️ ตั้งค่า API</button>
+    </div>
 
-      <div class="card">
-        <div class="stack">
-          <button id="newChatBtn">เริ่มแชตใหม่</button>
-          <button class="btn btn-secondary" id="showConfigBtn">ตั้งค่า API เพิ่มเติม</button>
-        </div>
+    <div class="hero">
+      <div class="badge">AI ช่วยคิดแทน ใช้ง่ายในหน้าเดียว</div>
+      <h1>Q-GPT Web</h1>
+      <p class="subtitle">
+        พิมพ์คำถามของคุณ แล้วให้ AI ช่วยวิเคราะห์ สรุป หรือเปรียบเทียบได้ทันที
+      </p>
+    </div>
+
+    <div class="card">
+      <label class="label" for="prompt">พิมพ์คำถาม / ปัญหา / สิ่งที่อยากให้ช่วยคิด</label>
+      <textarea id="prompt" placeholder="เช่น มีงบ 5000 ควรเริ่มขายอะไรดี หรือ เปรียบเทียบมือถือ 2 รุ่นให้หน่อย"></textarea>
+
+      <div class="actions">
+        <button class="primary" onclick="sendPrompt('analyze')">🧠 วิเคราะห์</button>
+        <button class="secondary" onclick="sendPrompt('summary')">⚡ สรุปเร็ว</button>
+        <button class="secondary" onclick="sendPrompt('compare')">📊 เปรียบเทียบ</button>
+        <button class="danger" onclick="clearAll()">🗑️ ล้างข้อความ</button>
       </div>
 
-      <div class="card">
-        <div class="sub" style="margin-bottom:10px">คำถามตัวอย่าง</div>
-        <div class="stack">
-          <button class="example" data-q="ช่วยวิเคราะห์ว่าควรเปิดร้านกาแฟหรือร้านค้าออนไลน์ก่อน">ธุรกิจ: ร้านกาแฟ vs ออนไลน์</button>
-          <button class="example" data-q="ช่วยวางแผนอ่านหนังสือสอบใน 30 วันแบบทำได้จริง">วางแผนอ่านหนังสือ</button>
-          <button class="example" data-q="อธิบายระบบ Q ให้คนทั่วไปเข้าใจง่าย">อธิบายระบบ Q</button>
-          <button class="example" data-q="ควรซื้อคอมใหม่ตอนนี้หรือรออีก 6 เดือน">ตัดสินใจซื้อคอม</button>
-        </div>
-      </div>
+      <div class="status" id="status">พร้อมใช้งาน</div>
+    </div>
 
-      <div class="card">
-        <div class="sub" style="margin-bottom:10px">โหมดเบื้องหลัง</div>
-        <div class="stack">
-          <div class="switch-row"><span>แสดงเหตุผลเพิ่ม</span><div class="switch" id="detailSwitch"></div></div>
-          <div class="switch-row"><span>ซ่อนคะแนนภายใน</span><div class="switch active" id="metricsSwitch"></div></div>
-          <div class="switch-row"><span>ใช้ API จริงถ้าตั้งค่าไว้</span><div class="switch" id="apiSwitch"></div></div>
-        </div>
+    <div class="card">
+      <label class="label">ผลลัพธ์จาก AI</label>
+      <div class="result-box" id="result">คำตอบจะแสดงที่นี่...</div>
+      <div class="footer-note">
+        หมายเหตุ: เวอร์ชันทดลองนี้เรียก API ตรงจากหน้าเว็บ เหมาะกับการลองใช้งานก่อน
       </div>
-
-      <div class="card">
-        <div class="tag">Q Hidden Engine</div>
-        <div class="notice" style="margin-top:10px">
-          เบื้องหลังจะทำ 5 ขั้นตอน: วิเคราะห์เจตนา → สร้างเหตุผล → ตรวจตรรกะ → จำลองผลลัพธ์ → สรุปคำตอบ
-        </div>
-      </div>
-    </aside>
-
-    <main class="main">
-      <div class="topbar">
-        <div>
-          <div class="brand" style="font-size:18px;margin:0"><div class="logo" style="width:32px;height:32px;border-radius:12px">Q</div>Q-GPT Chat</div>
-          <div class="small">ตอบคล้าย GPT แต่มีระบบ Q คิดอยู่เบื้องหลัง</div>
-        </div>
-        <div class="pill">🧠 Hidden Q System</div>
-      </div>
-
-      <div class="chat" id="chat">
-        <div class="msg assistant">
-          <div class="msg-head">Q-GPT</div>
-          <div class="bubble">สวัสดี 👋
-ลองถามเรื่องธุรกิจ การตัดสินใจ การวางแผน หรือขอให้อธิบายแนวคิดยาก ๆ ได้เลย</div>
-        </div>
-      </div>
-
-      <div class="composer-wrap">
-        <div class="composer">
-          <textarea id="input" placeholder="พิมพ์คำถามของคุณ..."></textarea>
-          <div class="composer-bar">
-            <div class="small">ถ้าตั้งค่า API ไว้ ระบบจะใช้โมเดลจริงได้</div>
-            <button id="sendBtn">ส่งข้อความ</button>
-          </div>
-        </div>
-      </div>
-    </main>
-
-    <aside class="right" id="adminPanel">
-      <div class="brand" style="font-size:18px">Admin Panel</div>
-      <div class="sub">ดูค่าประเมินภายในของระบบ Q</div>
-
-      <div class="card">
-        <div class="metric">
-          <div class="metric-top"><span>Intent confidence</span><strong id="mIntent">-</strong></div>
-          <div class="bar"><div class="fill" id="bIntent"></div></div>
-        </div>
-        <div class="metric">
-          <div class="metric-top"><span>Reasoning strength</span><strong id="mReasoning">-</strong></div>
-          <div class="bar"><div class="fill" id="bReasoning"></div></div>
-        </div>
-        <div class="metric">
-          <div class="metric-top"><span>Logic consistency</span><strong id="mLogic">-</strong></div>
-          <div class="bar"><div class="fill" id="bLogic"></div></div>
-        </div>
-        <div class="metric">
-          <div class="metric-top"><span>Response clarity</span><strong id="mClarity">-</strong></div>
-          <div class="bar"><div class="fill" id="bClarity"></div></div>
-        </div>
-        <div class="metric">
-          <div class="metric-top"><span>Complexity</span><strong id="mComplexity">-</strong></div>
-        </div>
-        <div class="metric">
-          <div class="metric-top"><span>Mode</span><strong id="mMode">-</strong></div>
-        </div>
-      </div>
-
-      <div class="card hidden" id="configCard">
-        <div class="brand" style="font-size:16px">API Config</div>
-        <div class="notice">กรอก endpoint และ key ถ้าต้องการต่อกับโมเดลจริง เช่น OpenAI-compatible API</div>
-        <div class="hr"></div>
-        <label class="small">API URL</label>
-        <input id="apiUrl" style="width:100%;margin-top:6px;margin-bottom:10px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:#0f1628;color:var(--text)" placeholder="https://your-api.example.com/v1/chat/completions" />
-        <label class="small">API Key</label>
-        <input id="apiKey" type="password" style="width:100%;margin-top:6px;margin-bottom:10px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:#0f1628;color:var(--text)" placeholder="sk-..." />
-        <label class="small">Model</label>
-        <input id="apiModel" style="width:100%;margin-top:6px;margin-bottom:10px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:#0f1628;color:var(--text)" placeholder="gpt-4o-mini / llama / mistral" />
-        <button id="saveConfigBtn" style="width:100%">บันทึกค่า</button>
-      </div>
-
-      <div class="card">
-        <div class="tag">ติดตั้งอัตโนมัติ</div>
-        <div class="notice" style="margin-top:10px">
-          โปรเจกต์นี้มาพร้อม GitHub Pages workflow ในโฟลเดอร์ <span class="mono">.github/workflows/pages.yml</span> เมื่อ push ขึ้น GitHub จะ deploy หน้าเว็บให้อัตโนมัติ
-        </div>
-      </div>
-    </aside>
+    </div>
   </div>
 
-<script>
-const chat = document.getElementById('chat');
-const input = document.getElementById('input');
-const sendBtn = document.getElementById('sendBtn');
-const newChatBtn = document.getElementById('newChatBtn');
-const detailSwitch = document.getElementById('detailSwitch');
-const metricsSwitch = document.getElementById('metricsSwitch');
-const apiSwitch = document.getElementById('apiSwitch');
-const showConfigBtn = document.getElementById('showConfigBtn');
-const configCard = document.getElementById('configCard');
-const adminPanel = document.getElementById('adminPanel');
+  <div class="modal" id="settingsModal">
+    <div class="modal-content">
+      <div class="modal-title">ตั้งค่า AI API</div>
 
-let detailedMode = false;
-let showMetrics = true;
-let useApiMode = false;
+      <div class="input-group">
+        <label class="label">API URL</label>
+        <input id="apiUrl" placeholder="เช่น https://your-api-url/v1/chat/completions" />
+      </div>
 
-const savedConfig = JSON.parse(localStorage.getItem('qgpt_config') || '{}');
-document.getElementById('apiUrl').value = savedConfig.url || '';
-document.getElementById('apiKey').value = savedConfig.key || '';
-document.getElementById('apiModel').value = savedConfig.model || '';
+      <div class="input-group">
+        <label class="label">API Key</label>
+        <input id="apiKey" type="password" placeholder="ใส่ API Key" />
+      </div>
 
-detailSwitch.addEventListener('click', () => {
-  detailedMode = !detailedMode;
-  detailSwitch.classList.toggle('active', detailedMode);
-});
-metricsSwitch.addEventListener('click', () => {
-  showMetrics = !showMetrics;
-  metricsSwitch.classList.toggle('active', showMetrics);
-  adminPanel.classList.toggle('hidden', !showMetrics);
-});
-apiSwitch.addEventListener('click', () => {
-  useApiMode = !useApiMode;
-  apiSwitch.classList.toggle('active', useApiMode);
-});
-showConfigBtn.addEventListener('click', () => {
-  configCard.classList.toggle('hidden');
-});
-document.getElementById('saveConfigBtn').addEventListener('click', () => {
-  const cfg = {
-    url: document.getElementById('apiUrl').value.trim(),
-    key: document.getElementById('apiKey').value.trim(),
-    model: document.getElementById('apiModel').value.trim()
-  };
-  localStorage.setItem('qgpt_config', JSON.stringify(cfg));
-  alert('บันทึกค่าแล้ว');
-});
+      <div class="input-group">
+        <label class="label">Model</label>
+        <input id="model" placeholder="เช่น gpt-4o-mini หรือ model อื่นที่ API คุณรองรับ" />
+      </div>
 
-document.querySelectorAll('[data-q]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    input.value = btn.dataset.q;
-    handleSend();
-  });
-});
+      <div class="actions">
+        <button class="primary" onclick="saveSettings()">💾 บันทึก</button>
+        <button class="secondary" onclick="closeSettings()">ปิด</button>
+      </div>
 
-newChatBtn.addEventListener('click', () => {
-  chat.innerHTML = `
-    <div class="msg assistant">
-      <div class="msg-head">Q-GPT</div>
-      <div class="bubble">เริ่มแชตใหม่แล้ว ✨
-ลองถามคำถามได้เลย</div>
-    </div>`;
-  resetMetrics();
-  input.value = '';
-});
+      <div class="tips">
+        ใช้กับ API ที่รองรับรูปแบบ chat completions ได้ง่ายที่สุด<br>
+        ตัวอย่างโครงสร้างคือมี URL, API Key, และชื่อโมเดล
+      </div>
+    </div>
+  </div>
 
-sendBtn.addEventListener('click', handleSend);
-input.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    handleSend();
-  }
-});
+  <script>
+    const promptEl = document.getElementById("prompt");
+    const resultEl = document.getElementById("result");
+    const statusEl = document.getElementById("status");
+    const settingsModal = document.getElementById("settingsModal");
 
-function addMessage(role, text, name) {
-  const wrap = document.createElement('div');
-  wrap.className = `msg ${role}`;
-  wrap.innerHTML = `<div class="msg-head">${name}</div><div class="bubble"></div>`;
-  wrap.querySelector('.bubble').textContent = text;
-  chat.appendChild(wrap);
-  chat.scrollTop = chat.scrollHeight;
-  window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-}
+    function openSettings() {
+      document.getElementById("apiUrl").value = localStorage.getItem("qgpt_api_url") || "";
+      document.getElementById("apiKey").value = localStorage.getItem("qgpt_api_key") || "";
+      document.getElementById("model").value = localStorage.getItem("qgpt_model") || "";
+      settingsModal.classList.add("show");
+    }
 
-async function handleSend() {
-  const text = input.value.trim();
-  if (!text) return;
+    function closeSettings() {
+      settingsModal.classList.remove("show");
+    }
 
-  addMessage('user', text, 'คุณ');
-  input.value = '';
+    function saveSettings() {
+      localStorage.setItem("qgpt_api_url", document.getElementById("apiUrl").value.trim());
+      localStorage.setItem("qgpt_api_key", document.getElementById("apiKey").value.trim());
+      localStorage.setItem("qgpt_model", document.getElementById("model").value.trim());
+      statusEl.textContent = "บันทึกการตั้งค่าเรียบร้อย";
+      closeSettings();
+    }
 
-  addMessage('assistant', 'กำลังวิเคราะห์ด้วยระบบ Q...', 'Q-GPT');
-  const loadingNode = chat.lastElementChild;
+    function clearAll() {
+      promptEl.value = "";
+      resultEl.textContent = "คำตอบจะแสดงที่นี่...";
+      statusEl.textContent = "ล้างข้อความแล้ว";
+    }
 
-  try {
-    const result = (useApiMode && hasApiConfig())
-      ? await runApiQ(text, detailedMode)
-      : runLocalQ(text, detailedMode);
+    function buildSystemPrompt(mode) {
+      if (mode === "summary") {
+        return "คุณคือ AI ผู้ช่วยสรุปภาษาไทย ตอบสั้น กระชับ เข้าใจง่าย และเป็นข้อสรุปที่ใช้งานได้จริง";
+      }
+      if (mode === "compare") {
+        return "คุณคือ AI ผู้ช่วยเปรียบเทียบตัวเลือก ตอบเป็นภาษาไทยแบบชัดเจน มีข้อดี ข้อเสีย และสรุปว่าควรเลือกอะไร";
+      }
+      return "คุณคือ AI ผู้ช่วยวิเคราะห์ภาษาไทย ช่วยคิดอย่างเป็นระบบ เข้าใจง่าย และเสนอทางเลือกที่ใช้ได้จริง";
+    }
 
-    loadingNode.querySelector('.bubble').textContent = result.output;
-    updateMetrics(result.metrics);
-  } catch (err) {
-    loadingNode.querySelector('.bubble').textContent = 'เกิดข้อผิดพลาดในการประมวลผล API จึงยังตอบไม่ได้';
-  }
-}
+    function buildUserPrompt(mode, text) {
+      if (mode === "summary") {
+        return "ช่วยสรุปข้อความต่อไปนี้ให้เข้าใจง่าย:\n\n" + text;
+      }
+      if (mode === "compare") {
+        return "ช่วยเปรียบเทียบสิ่งต่อไปนี้อย่างชัดเจน พร้อมข้อดี ข้อเสีย และคำแนะนำ:\n\n" + text;
+      }
+      return "ช่วยวิเคราะห์เรื่องนี้อย่างเป็นระบบ พร้อมคำแนะนำที่ทำได้จริง:\n\n" + text;
+    }
 
-function hasApiConfig() {
-  const cfg = JSON.parse(localStorage.getItem('qgpt_config') || '{}');
-  return !!(cfg.url && cfg.key && cfg.model);
-}
+    async function sendPrompt(mode) {
+      const apiUrl = localStorage.getItem("qgpt_api_url");
+      const apiKey = localStorage.getItem("qgpt_api_key");
+      const model = localStorage.getItem("qgpt_model");
+      const text = promptEl.value.trim();
 
-async function runApiQ(question, detailed) {
-  const cfg = JSON.parse(localStorage.getItem('qgpt_config') || '{}');
+      if (!text) {
+        statusEl.textContent = "กรุณาพิมพ์ข้อความก่อน";
+        return;
+      }
 
-  const systemPrompt = `SYSTEM MODE: Q-SYSTEM HIDDEN MODE
+      if (!apiUrl || !apiKey || !model) {
+        statusEl.textContent = "กรุณาตั้งค่า API ก่อนใช้งาน";
+        openSettings();
+        return;
+      }
 
-คิดลึกภายใน ตรวจตรรกะก่อนตอบ แต่ตอบผู้ใช้แบบสั้น ชัด อ่านง่าย
-ห้ามอธิบาย chain-of-thought ภายใน
-ตอบเป็นภาษาไทย
-รูปแบบ:
-🧠 คำตอบ
-...
-🔎 เหตุผล
-...
-⚠️ หมายเหตุ (ถ้าจำเป็น)
+      resultEl.textContent = "กำลังคิดคำตอบ...";
+      statusEl.textContent = "กำลังเชื่อมต่อ AI...";
 
-เพิ่มโหมด Adaptive Answer โดยเลือกความยาวคำตอบตามความซับซ้อนของคำถาม`;
+      try {
+        const response = await fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + apiKey
+          },
+          body: JSON.stringify({
+            model: model,
+            messages: [
+              { role: "system", content: buildSystemPrompt(mode) },
+              { role: "user", content: buildUserPrompt(mode, text) }
+            ],
+            temperature: 0.7
+          })
+        });
 
-  const body = {
-    model: cfg.model,
-    messages: [
-      { role: "system", content: systemPrompt },
-      { role: "user", content: question }
-    ],
-    temperature: 0.7
-  };
+        const data = await response.json();
 
-  const res = await fetch(cfg.url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${cfg.key}`
-    },
-    body: JSON.stringify(body)
-  });
+        if (!response.ok) {
+          throw new Error(data.error?.message || "เชื่อมต่อ API ไม่สำเร็จ");
+        }
 
-  if (!res.ok) throw new Error("API error");
-  const data = await res.json();
+        const answer =
+          data.choices?.[0]?.message?.content ||
+          "ไม่พบคำตอบจาก API";
 
-  const text = data.choices?.[0]?.message?.content || "ไม่มีคำตอบจาก API";
-  const localMetrics = runLocalQ(question, detailed).metrics;
+        resultEl.textContent = answer;
+        statusEl.textContent = "ตอบกลับเรียบร้อย";
+      } catch (error) {
+        resultEl.textContent = "เกิดข้อผิดพลาด: " + error.message;
+        statusEl.textContent = "เชื่อมต่อไม่สำเร็จ";
+      }
+    }
 
-  return { output: text, metrics: localMetrics };
-}
-
-function runLocalQ(question, detailed) {
-  const q = question.toLowerCase();
-  let answer = 'นี่คือเดโม Q-GPT ที่ใช้ระบบ Q วิเคราะห์ก่อนตอบ';
-  let reason = 'ระบบจะสรุปคำตอบให้สั้น ชัด และมีเหตุผลรองรับ';
-  let note = '';
-  let mode = 'Quick';
-  let complexity = 'ต่ำ';
-  let intentScore = 80;
-  let reasoningScore = 78;
-  let logicScore = 84;
-  let clarityScore = 90;
-
-  const has = arr => arr.some(w => q.includes(w));
-  const business = ['ธุรกิจ','ร้านกาแฟ','ออนไลน์','ลงทุน','ลูกค้า','ตลาด'];
-  const planning = ['แผน','วางแผน','สอบ','30 วัน','ตาราง'];
-  const explain = ['อธิบาย','คืออะไร','ระบบ q','แบบง่าย'];
-  const compare = ['หรือ','ดีกว่า','เปรียบเทียบ','vs'];
-  const buy = ['ซื้อคอม','6 เดือน','รอ'];
-
-  if (has(business) && has(compare)) {
-    answer = 'ถ้าเริ่มจากความเสี่ยงต่ำ ควรเริ่มร้านค้าออนไลน์ก่อน';
-    reason = 'ร้านค้าออนไลน์ใช้ต้นทุนหน้าร้านต่ำ ทดสอบตลาดได้ไว และขยายได้ง่ายกว่าก่อน';
-    note = 'แต่ถ้าคุณมีทำเลดีและถนัดงานบริการ ร้านกาแฟก็มีโอกาสเติบโตได้';
-    mode = 'Decision';
-    complexity = 'กลาง';
-    intentScore = 93; reasoningScore = 89; logicScore = 87; clarityScore = 92;
-  } else if (has(planning)) {
-    answer = 'ควรแบ่งอ่านเป็นรายสัปดาห์และมีวันทบทวนทุก 7 วัน';
-    reason = 'แผนที่สั้นและชัดจะทำให้ทำตามได้จริงและวัดความคืบหน้าได้ง่าย';
-    note = 'ควรเผื่อวันพักและวันสำรองสำหรับบทที่ยาก';
-    mode = 'Planning';
-    complexity = 'กลาง';
-    intentScore = 90; reasoningScore = 84; logicScore = 88; clarityScore = 93;
-  } else if (has(explain)) {
-    answer = 'ระบบ Q คือชั้นคิดเบื้องหลังที่ช่วยให้ AI วิเคราะห์ก่อนตอบ';
-    reason = 'มันแยกขั้นตอนคิด ตรวจตรรกะ และสรุปคำตอบให้เป็นระบบมากขึ้น';
-    mode = 'Explain';
-    complexity = 'ต่ำ';
-    intentScore = 95; reasoningScore = 84; logicScore = 91; clarityScore = 96;
-  } else if (has(buy)) {
-    answer = 'ถ้าเครื่องเดิมยังพอใช้ การรออีก 6 เดือนมักคุ้มกว่า';
-    reason = 'คุณมีโอกาสได้สเปกดีขึ้นในราคาใกล้เดิม แต่ถ้างานเร่ง การซื้อทันทีอาจคุ้มกว่าเวลา';
-    note = 'จุดตัดสินใจจริงคือความเร่งด่วนของงาน ไม่ใช่แค่สเปก';
-    mode = 'Simulation';
-    complexity = 'สูง';
-    intentScore = 90; reasoningScore = 90; logicScore = 86; clarityScore = 89;
-  }
-
-  let output = `🧠 คำตอบ\n${answer}\n\n🔎 เหตุผล\n${reason}`;
-  if (detailed) {
-    output += `\n\n📌 วิเคราะห์เพิ่ม\n- โหมด: ${mode}\n- ความซับซ้อน: ${complexity}\n- ระบบ Q ตรวจความสอดคล้องก่อนสรุปคำตอบแล้ว`;
-  }
-  if (note) output += `\n\n⚠️ หมายเหตุ\n${note}`;
-
-  return {
-    output,
-    metrics: { intentScore, reasoningScore, logicScore, clarityScore, complexity, mode }
-  };
-}
-
-function updateMetrics(m) {
-  setMetric('Intent', m.intentScore);
-  setMetric('Reasoning', m.reasoningScore);
-  setMetric('Logic', m.logicScore);
-  setMetric('Clarity', m.clarityScore);
-  document.getElementById('mComplexity').textContent = m.complexity;
-  document.getElementById('mMode').textContent = m.mode;
-}
-
-function setMetric(name, val) {
-  document.getElementById('m' + name).textContent = val + '%';
-  document.getElementById('b' + name).style.width = val + '%';
-}
-
-function resetMetrics() {
-  ['Intent','Reasoning','Logic','Clarity'].forEach(name => {
-    document.getElementById('m' + name).textContent = '-';
-    document.getElementById('b' + name).style.width = '0%';
-  });
-  document.getElementById('mComplexity').textContent = '-';
-  document.getElementById('mMode').textContent = '-';
-}
-</script>
+    window.onclick = function(event) {
+      if (event.target === settingsModal) {
+        closeSettings();
+      }
+    };
+  </script>
 </body>
-          </html>
-          
+</html>
