@@ -1,7 +1,18 @@
-<h1>Synlayer</h1>
+<textarea id="input" placeholder="Describe your idea..."></textarea>
+<br><br>
+<button onclick="run()">Run Synlayer</button>
 
-<p>Private-identity AI foundation layer for structured workflows, lower-cost deployment, and research-ready systems.</p>
+<pre id="output"></pre>
 
-<p>Synlayer helps researchers and developers build AI systems faster with better structure and lower cost.</p>
+<script>
+function run() {
+  let input = document.getElementById("input").value;
+  
+  let result = "Structured Output:\n\n";
+  result += "- Core idea: " + input + "\n";
+  result += "- Workflow: [analyze -> structure -> deploy]\n";
+  result += "- Suggestion: refine and test\n";
 
-<p>Contact: Kiwchauat44@gmail.com</p>
+  document.getElementById("output").innerText = result;
+}
+</script>
