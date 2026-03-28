@@ -1,18 +1,310 @@
-<textarea id="input" placeholder="Describe your idea..."></textarea>
-<br><br>
-<button onclick="run()">Run Synlayer</button>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Q-System | Synlayer</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
 
-<pre id="output"></pre>
+    body {
+      background: linear-gradient(180deg, #0d0d0d, #161616);
+      color: #f5f5f5;
+      min-height: 100vh;
+      padding: 24px;
+    }
 
-<script>
-function run() {
-  let input = document.getElementById("input").value;
-  
-  let result = "Structured Output:\n\n";
-  result += "- Core idea: " + input + "\n";
-  result += "- Workflow: [analyze -> structure -> deploy]\n";
-  result += "- Suggestion: refine and test\n";
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
 
-  document.getElementById("output").innerText = result;
-}
-</script>
+    .card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+
+    .hero {
+      text-align: center;
+      padding: 40px 24px;
+    }
+
+    .hero h1 {
+      font-size: 2.4rem;
+      margin-bottom: 12px;
+      color: #ffffff;
+    }
+
+    .hero p {
+      color: #cfcfcf;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-bottom: 16px;
+      background: #ff4fd8;
+      color: #111;
+      font-weight: bold;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .feature {
+      background: rgba(255,255,255,0.03);
+      padding: 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .feature h3 {
+      margin-bottom: 8px;
+      color: #ff9ef1;
+      font-size: 1rem;
+    }
+
+    .feature p {
+      color: #d6d6d6;
+      font-size: 0.94rem;
+      line-height: 1.5;
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      margin-bottom: 14px;
+      color: #ffffff;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 140px;
+      resize: vertical;
+      padding: 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: #101010;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    textarea:focus {
+      border-color: #ff4fd8;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    button, .link-btn {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-size: 0.96rem;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .primary-btn {
+      background: #ff4fd8;
+      color: #111;
+    }
+
+    .secondary-btn {
+      background: #272727;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .output {
+      margin-top: 18px;
+      background: #0d0d0d;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 16px;
+      white-space: pre-wrap;
+      line-height: 1.7;
+      color: #eaeaea;
+      min-height: 140px;
+    }
+
+    .credit-box {
+      line-height: 1.7;
+      color: #d5d5d5;
+    }
+
+    .credit-box strong {
+      color: #fff;
+    }
+
+    footer {
+      text-align: center;
+      color: #9e9e9e;
+      font-size: 0.9rem;
+      margin-top: 24px;
+      padding-bottom: 24px;
+    }
+
+    .small {
+      font-size: 0.9rem;
+      color: #bdbdbd;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 640px) {
+      .hero h1 {
+        font-size: 1.9rem;
+      }
+
+      body {
+        padding: 16px;
+      }
+
+      .card {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <section class="card hero">
+      <div class="tag">Q-System Interface</div>
+      <h1>Synlayer / Q-System</h1>
+      <p>
+        ระบบคิดเชิงโครงสร้างสำหรับแปลงไอเดีย ความรู้สึก สัญญาณ และปัญหาที่กระจัดกระจาย
+        ให้เป็นโครงคิดที่ใช้งานได้จริง ชัดขึ้น และตัดสินใจได้เร็วขึ้น
+      </p>
+    </section>
+
+    <section class="card">
+      <div class="section-title">จุดเด่นของระบบ ✨</div>
+      <div class="grid">
+        <div class="feature">
+          <h3>Observe</h3>
+          <p>รับข้อมูลดิบ ไอเดีย ความรู้สึก หรือปัญหา แล้วดูโดยไม่รีบสรุป</p>
+        </div>
+        <div class="feature">
+          <h3>Structure</h3>
+          <p>จัดสิ่งที่กระจัดกระจายให้เป็นหมวด กลายเป็นโครงสร้างที่จับต้องได้</p>
+        </div>
+        <div class="feature">
+          <h3>Reality Check</h3>
+          <p>แยกของจริงออกจากความฟุ้ง ด้วยการเช็กกับโลกจริงและการใช้งานจริง</p>
+        </div>
+        <div class="feature">
+          <h3>Next Step</h3>
+          <p>สรุปเป็นขั้นถัดไปเล็กๆ ที่ทำได้จริง ไม่หลงไปกับภาพใหญ่เกินจำเป็น</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-title">ทดลองใช้ระบบ 🧠</div>
+      <textarea id="inputText" placeholder="พิมพ์ไอเดีย ปัญหา สถานการณ์ หรือสิ่งที่คุณกำลังคิดอยู่..."></textarea>
+
+      <div class="actions">
+        <button class="primary-btn" onclick="runQSystem()">Run Q-System</button>
+        <button class="secondary-btn" onclick="clearAll()">Clear</button>
+        <a class="link-btn secondary-btn" href="mailto:Kiwchauat44@gmail.com">Contact Q</a>
+      </div>
+
+      <div class="small">
+        ตัวอย่าง: “ฉันมีไอเดียแต่ยังไม่รู้จะเริ่มยังไง” หรือ “ระบบนี้ควรขายแบบไหน”
+      </div>
+
+      <div class="output" id="outputBox">ผลลัพธ์จากระบบจะขึ้นที่นี่...</div>
+    </section>
+
+    <section class="card">
+      <div class="section-title">Credit / Attribution 📌</div>
+      <div class="credit-box">
+        <p><strong>System Credit:</strong> Q Thinking System</p>
+        <p><strong>Contact:</strong> Kiwchauat44@gmail.com</p>
+        <p>
+          หากมีการนำโครงสร้างระบบคิดนี้ไปใช้ ดัดแปลง ฝังในระบบอื่น หรือเชื่อมต่อใช้งานต่อ
+          กรุณาคงเครดิตให้ <strong>Q</strong> ไว้ในระบบ
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      Powered by Q-System • Synlayer Interface
+    </footer>
+  </div>
+
+  <script>
+    function runQSystem() {
+      const input = document.getElementById("inputText").value.trim();
+      const outputBox = document.getElementById("outputBox");
+
+      if (!input) {
+        outputBox.innerText = "กรุณาพิมพ์ข้อมูลก่อน แล้วค่อยกด Run Q-System";
+        return;
+      }
+
+      const result =
+`[ Q-System Structured Output ]
+
+1) สิ่งที่กำลังเกิด:
+${input}
+
+2) แก่นหลัก:
+- มีบางอย่างที่ยังไม่ถูกจัดรูปให้ชัด
+- ต้องแยกสิ่งที่เป็นสัญญาณจริง ออกจากสิ่งที่เป็นความฟุ้งหรือความเร่ง
+
+3) โครงวิเคราะห์:
+- สิ่งที่รู้ / สิ่งที่ยังไม่รู้
+- สิ่งที่อยู่ในหัว / สิ่งที่เช็กกับโลกจริงได้
+- สิ่งที่ทำได้ตอนนี้ / สิ่งที่ต้องรอ
+
+4) ความเสี่ยง:
+- สรุปเร็วเกินไป
+- ภาพใหญ่เกินไป
+- ยังไม่แปลงเป็นขั้นที่ทำได้จริง
+
+5) ขั้นถัดไปที่แนะนำ:
+- บีบปัญหาให้เล็กลง 1 ระดับ
+- เขียนสิ่งที่ต้องการให้ชัด 1 ประโยค
+- เช็กกับโลกจริง 1 จุด
+- ลงมือทำ 1 ขั้นเล็ก
+
+6) Attribution:
+Powered by Q Thinking System
+Contact: Kiwchauat44@gmail.com`;
+
+      outputBox.innerText = result;
+    }
+
+    function clearAll() {
+      document.getElementById("inputText").value = "";
+      document.getElementById("outputBox").innerText = "ผลลัพธ์จากระบบจะขึ้นที่นี่...";
+    }
+  </script>
+</body>
+</html>
