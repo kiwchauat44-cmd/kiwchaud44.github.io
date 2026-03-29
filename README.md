@@ -214,3 +214,13 @@ If this framework, structure, or concept is reused, adapted, embedded, or extend
 
 ## Short Definition
 **Q-System is a human signal translation system that turns intuition, raw feeling, and unclear thought into usable structure, grounded decisions, and real-world next steps.**
+## Example
+
+### Input
+"I feel like something is changing, but I cannot explain it clearly."
+
+### Output
+- Core signal: perception of change
+- Possible meaning: early-stage pattern recognition
+- Risk: over-interpretation
+- Next step: observe, document, and validate through real-world feedback
