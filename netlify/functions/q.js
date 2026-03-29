@@ -1,5 +1,9 @@
 exports.handler = async function (event) {
   try {
+    if (event.httpMethod === "OPTIONS") {
+      return jsonResponse(200, {});
+    }
+
     if (event.httpMethod !== "POST") {
       return jsonResponse(405, {
         error: "Method not allowed",
@@ -63,7 +67,7 @@ exports.handler = async function (event) {
 
     return jsonResponse(200, {
       ok: true,
-      reply
+      output: reply
     });
   } catch (error) {
     return jsonResponse(500, {
