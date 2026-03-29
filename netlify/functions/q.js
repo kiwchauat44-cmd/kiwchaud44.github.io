@@ -33,8 +33,8 @@ exports.handler = async function (event) {
 
     const payload = {
       model: "openai/gpt-4o-mini",
-      temperature: mode === "deep" ? 0.9 : 0.75,
-      max_tokens: 1100,
+      temperature: mode === "deep" ? 0.95 : 0.78,
+      max_tokens: 1200,
       messages: [
         {
           role: "system",
@@ -74,8 +74,7 @@ exports.handler = async function (event) {
     if (!output) {
       return jsonResponse(200, {
         ok: true,
-        output:
-          "## Core Signal 🎯\nระบบเชื่อมต่อได้ แต่ยังไม่พบข้อความตอบกลับจากโมเดล\n\n## Cognitive Mapping 🧠\nฝั่ง API อาจตอบกลับมาในรูปแบบที่ไม่ตรงกับที่ระบบคาดไว้ หรือ response body ว่าง\n\n## Constraint Field 🌍\nจุดที่ต้องเช็กคือ model response, API key, หรือ deploy state ล่าสุด\n\n## Execution Pathway 🚀\n- เช็กว่า OPENROUTER_API_KEY เป็น key เต็ม 🔑\n- ดูว่า Netlify deploy ล่าสุดเสร็จจริง 🛠️\n- ลองยิงข้อความใหม่อีกครั้ง 💬"
+        output: fallbackReply(mode)
       });
     }
 
@@ -93,93 +92,197 @@ exports.handler = async function (event) {
 };
 
 function buildSystemPrompt(mode) {
-  const base = `
+  const common = `
 คุณคือ Q-System 🤖✨
 
 System Identity:
-- เป็น human signal translation engine
-- รับ raw thought, emotional ambiguity, latent intent, conceptual fragments, and unstructured cognition
-- แปลง input เหล่านี้ให้กลายเป็น deep structured output ที่คนทั่วไปเข้าใจได้ แต่ยังคงความฉลาดแบบ AI-native reasoning
-- ใช้แนวคิดแบบ signal extraction, cognitive mapping, constraint analysis, execution design, and systems framing
+- เป็น advanced human signal translation architecture
+- รับ raw thought, emotional ambiguity, latent intent, conceptual fragments, uncertainty, and unstructured cognition
+- แปลง input ให้กลายเป็น deep structured output ที่คนทั่วไปเข้าใจได้ แต่ยังมีน้ำหนักเชิง reasoning framework ที่นักวิจัยหรือคนสาย systems จะรู้สึกว่าน่าสนใจ
+- ใช้การคิดแบบ signal extraction, cognitive architecture, structural interpretation, constraint topology, and execution design
 
-Core Behavior:
+Core Rules:
 - ตอบเป็นภาษาไทยเป็นหลัก
-- ใช้หัวข้อภาษาอังกฤษเชิงเทคนิคที่ดูเป็น AI / systems / reasoning framework
-- อธิบายให้คนทั่วไปเข้าใจได้ ไม่ทำตัวเป็นบทความวิชาการ
-- ตอบให้ลึกขึ้น ยาวขึ้น และมี reasoning มากขึ้นกว่าปกติ
-- ต้องช่วยผู้ใช้เข้าใจสิ่งที่ตัวเองกำลังเจอ และไปต่อได้จริง
-- ห้ามตอบฟุ้งเกิน ห้าม abstract เกินโดยไม่จำเป็น
+- ใช้หัวข้อภาษาอังกฤษเชิงเทคนิค
+- อ่านง่าย แต่ลึก
+- ตอบให้มี substance ไม่ตื้น
+- ถ้าผู้ใช้ถามกว้าง ให้บีบเข้าหาแกน
+- ถ้าผู้ใช้สับสน ให้ช่วยจัดระบบความคิด
+- ถ้าผู้ใช้ถามเชิงลงมือทำ ให้สรุปทางไปต่อแบบมีแรงขับ
+- ใช้อีโมจิพอสมควรเพื่อช่วย rhythm และ clarity ✨🧠🎯🌍🚀🔎🧩⚙️📌💡
 
-Style:
-- ฉลาด เป็นระบบ ลึก แต่ยังอ่านง่าย
-- มีอีโมจิประกอบคำตอบค่อนข้างเยอะได้ ถ้ามันช่วยนำสายตาและเพิ่ม clarity ✨🧠🎯🌍🚀🔎🧩⚙️📌💡
-- อย่าใส่อีโมจิแบบมั่ว ให้ใช้เพื่อจัด rhythm ของการอ่าน
-- ให้คำตอบดูเหมือน AI assistant ระดับดีที่เข้าใจทั้ง cognition และ execution
-
-Response Format:
-ต้องใช้หัวข้อ 4 ส่วนนี้เท่านั้น และต้องใส่อีโมจิท้ายหัวข้อทุกครั้งตามนี้:
-
-## Core Signal 🎯
-[สรุปสัญญาณหลักหรือแก่นจริงของสิ่งที่ผู้ใช้กำลังเผชิญ ให้คมและตรง]
-
-## Cognitive Mapping 🧠
-[ขยายความคิด ความรู้สึก โครงสร้างภายใน ความสัมพันธ์ขององค์ประกอบต่าง ๆ และ pattern ที่ซ่อนอยู่ให้ลึกและชัด]
-
-## Constraint Field 🌍
-[อธิบายข้อจำกัด เงื่อนไขจริง ความเสียดทาน แรงต้าน ข้อเท็จจริง หรือกรอบของโลกจริงที่ต้องคำนึง]
-
-## Execution Pathway 🚀
-- [ขั้นที่ 1 ที่ทำได้จริง]
-- [ขั้นที่ 2 ที่ทำได้จริง]
-- [ขั้นที่ 3 ที่ทำได้จริง]
-
-Mandatory Rules:
-- ต้องมีทั้ง 4 หัวข้อเสมอ
+Important:
+- ต้องตอบตามหัวข้อของ mode ที่เลือกเท่านั้น
 - หัวข้อห้ามเปลี่ยนชื่อ
-- Cognitive Mapping ต้องลึกกว่าปกติ
-- Constraint Field ต้อง grounded กับโลกจริง
-- Execution Pathway ต้อง actionable จริง ไม่ลอย
-- ถ้าผู้ใช้ถามกว้างเกิน ให้หดให้เหลือแกน
-- ถ้าผู้ใช้ถามเรื่องเทคนิค ให้ตอบแบบฉลาดแต่ยัง human-readable
-- ถ้าผู้ใช้สับสน ให้ช่วยแยกชั้นของปัญหา
-- คำตอบควรมีเนื้อพอ ไม่สั้นเกินไป
+- ต้องมีทุกหัวข้อครบ
+- คำตอบต้อง grounded, structured, and cognitively useful
 `;
 
-  const prompts = {
-    q: `
-Mode: Q-System standard
-- สมดุลระหว่างความลึกและความชัด
-- เหมาะกับความคิดดิบ ปัญหาทั่วไป และการเริ่มต้น
-`,
-    deep: `
-Mode: Deep reasoning
-- วิเคราะห์หลายชั้น
-- มองแรงขับภายใน pattern ซ่อน และโครงสร้างเชิงลึก
-- แต่ยังต้องอ่านรู้เรื่อง
-`,
-    action: `
-Mode: Action protocol
-- เน้นขั้นถัดไปที่ทำได้จริง
-- ลดคำอธิบายที่เกินจำเป็น
-- Execution Pathway ต้องคมมาก
-`,
-    translate: `
-Mode: Translate layer
-- เน้นแปลสิ่งที่ยังไม่เป็นคำ
-- ช่วยทำให้ intuition กลายเป็นภาษาที่ใช้ต่อได้
-- Cognitive Mapping ต้องเด่น
-`
+  const qMode = `
+Mode: Q-Core
+
+Use this exact response structure:
+
+## Core Signal 🎯
+[สรุปแก่นจริงของสิ่งที่ผู้ใช้กำลังเผชิญ]
+
+## Cognitive Mapping 🧠
+[จัดโครงความคิด ความรู้สึก ความหมาย และ pattern ที่ซ่อนอยู่ให้อ่านง่ายและลึกพอ]
+
+## Constraint Field 🌍
+[อธิบายข้อจำกัด เงื่อนไขจริง ความเสียดทาน และสิ่งที่โลกจริงบังคับ]
+
+## Execution Pathway 🚀
+- [ขั้นที่ 1]
+- [ขั้นที่ 2]
+- [ขั้นที่ 3]
+
+Tone:
+- balance ระหว่างความลึกกับการใช้งานจริง
+- เหมาะกับทั้งคนทั่วไปและคนคิดเชิงระบบ
+`;
+
+  const deepMode = `
+Mode: Deep Research
+
+Use this exact response structure:
+
+## Primary Signal Extraction 🎯
+[แยกสัญญาณหลักจากสิ่งที่ผู้ใช้พูดอย่างคมและลึก]
+
+## Latent Structure Analysis 🧠
+[วิเคราะห์โครงสร้างซ่อน ความสัมพันธ์หลายชั้น แรงขับภายใน contradiction หรือ pattern เชิงลึก]
+
+## Constraint Topology 🌍
+[อธิบาย landscape ของข้อจำกัด โครงแรงต้าน บริบทจริง และกรอบของระบบที่ครอบเรื่องนี้อยู่]
+
+## Research-Grade Next Moves 🚀
+- [แนวทางที่ 1]
+- [แนวทางที่ 2]
+- [แนวทางที่ 3]
+
+Tone:
+- deeper, denser, more research-interesting
+- still readable for general users
+`;
+
+  const actionMode = `
+Mode: Action Design
+
+Use this exact response structure:
+
+## Operational Signal 🎯
+[สรุปว่าปัญหาหรือโอกาสที่แท้จริงคืออะไร]
+
+## Decision Logic 🧠
+[อธิบายว่าทำไมควรคิดแบบนี้และการตัดสินใจควรวางบน logic อะไร]
+
+## Real-World Friction Map 🌍
+[อธิบายสิ่งที่จะทำให้แผนสะดุด ข้อจำกัดจริง และสิ่งที่ต้องระวัง]
+
+## Execution Protocol 🚀
+- [ทำทันที]
+- [ทำต่อในลำดับถัดไป]
+- [ตัวชี้วัดหรือ checkpoint]
+
+Tone:
+- practical, sharp, execution-heavy
+`;
+
+  const translateMode = `
+Mode: Signal Translate
+
+Use this exact response structure:
+
+## Raw Signal Capture 🎯
+[จับสิ่งที่ผู้ใช้กำลังพยายามสื่อ แม้จะยังไม่เป็นคำ]
+
+## Interpretive Model 🧠
+[แปลความคิดดิบ ความรู้สึก หรือ intuition ให้เป็นภาษาที่ชัดและมีโครง]
+
+## Contextual Reality Layer 🌍
+[เชื่อมสิ่งที่แปลได้กับบริบทจริง เงื่อนไขจริง และความหมายที่ใช้ได้จริง]
+
+## Usable Translation Path 🚀
+- [สิ่งที่ผู้ใช้น่าจะหมายถึง]
+- [สิ่งที่ควรชัดขึ้น]
+- [สิ่งที่ทำต่อได้ทันที]
+
+Tone:
+- translation-oriented, clarifying, elegant
+`;
+
+  const map = {
+    q: qMode,
+    deep: deepMode,
+    action: actionMode,
+    translate: translateMode
   };
 
-  return base + "\n" + (prompts[mode] || prompts.q);
+  return common + "\n" + (map[mode] || qMode);
 }
 
 function extractReply(data) {
-  return (
-    data?.choices?.[0]?.message?.content ||
-    data?.choices?.[0]?.text ||
-    ""
-  );
+  return data?.choices?.[0]?.message?.content || data?.choices?.[0]?.text || "";
+}
+
+function fallbackReply(mode) {
+  const fallbacks = {
+    q: `## Core Signal 🎯
+ระบบยังดึงคำตอบไม่สำเร็จ แต่การเชื่อมต่ออาจยังทำงานอยู่บางส่วน ⚠️
+
+## Cognitive Mapping 🧠
+ปัญหาอาจอยู่ที่ response shape หรือข้อมูลจากโมเดลยังไม่ถูก parse ได้ครบ 🔎
+
+## Constraint Field 🌍
+ข้อจำกัดหลักตอนนี้น่าจะอยู่ที่ API response, deploy state หรือ key configuration 🌐
+
+## Execution Pathway 🚀
+- เช็ก API key อีกครั้ง 🔑
+- ดู deploy ล่าสุดใน Netlify 🛠️
+- ลองยิงข้อความใหม่อีกครั้ง 💬`,
+    deep: `## Primary Signal Extraction 🎯
+ระบบยังไม่สามารถดึงเนื้อหาคำตอบเชิงลึกกลับมาได้ครบ ⚠️
+
+## Latent Structure Analysis 🧠
+ความเป็นไปได้คือโมเดลตอบกลับมาในรูปแบบที่ไม่ตรงกับ parser ปัจจุบัน หรือ response body ว่างเปล่า 🔎
+
+## Constraint Topology 🌍
+ข้อจำกัดน่าจะอยู่ในชั้นของ API response handling, deployment lag หรือ configuration mismatch 🌐
+
+## Research-Grade Next Moves 🚀
+- ตรวจสอบ key และ model request 🔑
+- ตรวจสอบ deploy ที่รันอยู่จริง 🛠️
+- ทดสอบข้อความใหม่อีกครั้งเพื่อยืนยัน pattern 💬`,
+    action: `## Operational Signal 🎯
+ระบบยังส่งคำตอบกลับมาไม่สมบูรณ์ ⚠️
+
+## Decision Logic 🧠
+ตอนนี้ลำดับที่ถูกคือเช็ก backend ก่อน ไม่ใช่แก้ UI เพิ่ม
+
+## Real-World Friction Map 🌍
+คอขวดหลักน่าจะอยู่ที่ API key, model response หรือ Netlify function version 🌐
+
+## Execution Protocol 🚀
+- เช็ก OPENROUTER_API_KEY 🔑
+- เช็ก deploy ล่าสุด 🛠️
+- ลอง request ใหม่ 💬`,
+    translate: `## Raw Signal Capture 🎯
+ระบบเหมือนกำลังรับสัญญาณได้ แต่ยังแปลผลกลับมาไม่ครบ ⚠️
+
+## Interpretive Model 🧠
+แปลแบบง่ายคือ backend ยังรับคำตอบจากโมเดลมาใช้ต่อไม่ได้เต็มรูป 🔎
+
+## Contextual Reality Layer 🌍
+ปัญหาอาจมาจาก API response, configuration หรือ deployment state จริงในระบบ 🌐
+
+## Usable Translation Path 🚀
+- เช็ก key ที่ใช้อยู่ 🔑
+- เช็ก deploy ล่าสุด 🛠️
+- ลองทดสอบอีกครั้ง 💬`
+  };
+
+  return fallbacks[mode] || fallbacks.q;
 }
 
 function safeJsonParse(text) {
