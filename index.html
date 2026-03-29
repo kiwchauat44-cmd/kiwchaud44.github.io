@@ -10,128 +10,232 @@
       box-sizing: border-box;
     }
 
+    :root {
+      --bg: #07070b;
+      --card: rgba(255,255,255,0.04);
+      --line: rgba(255,255,255,0.08);
+      --text: #ffffff;
+      --muted: #cfd3e6;
+      --muted-2: #9da3b8;
+      --pink: #ff43bb;
+      --pink-2: #ff6cdd;
+      --cyan: #78efff;
+      --blue: #5ab8ff;
+      --shadow: 0 12px 40px rgba(255, 67, 187, 0.20);
+    }
+
     body {
       margin: 0;
-      padding: 20px;
-      background:
-        radial-gradient(circle at top, rgba(255, 0, 128, 0.12), transparent 25%),
-        radial-gradient(circle at bottom, rgba(0, 140, 255, 0.08), transparent 25%),
-        #09090d;
-      color: #ffffff;
-      font-family: "Segoe UI", Tahoma, sans-serif;
       min-height: 100vh;
+      color: var(--text);
+      font-family: "Segoe UI", "Noto Sans Thai", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255,67,187,0.14), transparent 26%),
+        radial-gradient(circle at top right, rgba(90,184,255,0.12), transparent 24%),
+        radial-gradient(circle at bottom center, rgba(120,239,255,0.08), transparent 30%),
+        var(--bg);
+      padding: 18px;
     }
 
     .container {
-      max-width: 860px;
+      max-width: 920px;
       margin: 0 auto;
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.03));
+      border: 1px solid var(--line);
+      border-radius: 28px;
       padding: 24px;
       margin-bottom: 20px;
-      box-shadow: 0 0 24px rgba(255, 255, 255, 0.04);
-      backdrop-filter: blur(4px);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.02), 0 10px 40px rgba(0,0,0,0.26);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -60px -80px auto;
+      width: 240px;
+      height: 240px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(255,67,187,0.22), transparent 65%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      background: rgba(120,239,255,0.08);
+      border: 1px solid rgba(120,239,255,0.14);
+      border-radius: 999px;
+      padding: 8px 12px;
+      margin-bottom: 14px;
     }
 
     .title {
-      font-size: 24px;
-      font-weight: 800;
-      margin-bottom: 10px;
+      font-size: 32px;
+      font-weight: 900;
+      margin: 0 0 10px;
       letter-spacing: 0.2px;
     }
 
     .subtitle {
-      font-size: 15px;
+      color: var(--muted);
       line-height: 1.9;
-      color: #e7e7e7;
+      font-size: 16px;
+      margin: 0;
     }
 
     .section-title {
-      font-size: 20px;
-      font-weight: 800;
-      margin-bottom: 16px;
+      font-size: 22px;
+      font-weight: 900;
+      margin: 0 0 14px;
     }
 
     textarea {
       width: 100%;
-      min-height: 180px;
+      min-height: 190px;
       resize: vertical;
-      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 20px;
       padding: 18px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: #030307;
-      color: #ffffff;
+      background: rgba(0,0,0,0.48);
+      color: #fff;
       font-size: 17px;
-      line-height: 1.7;
+      line-height: 1.8;
       outline: none;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
     }
 
     textarea::placeholder {
-      color: #9a9a9a;
+      color: #9aa0b4;
     }
 
-    .single-action-wrap {
+    .toolbar {
       margin-top: 18px;
       display: flex;
-      justify-content: flex-start;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
     }
 
-    .main-button {
-      appearance: none;
+    .run-btn {
       border: none;
       border-radius: 18px;
-      padding: 16px 24px;
-      min-width: 210px;
-      background: linear-gradient(135deg, #ff3fb4, #ff6be0);
+      padding: 16px 26px;
+      min-width: 220px;
+      background: linear-gradient(135deg, var(--pink), var(--pink-2));
       color: white;
       font-size: 18px;
-      font-weight: 800;
+      font-weight: 900;
       cursor: pointer;
-      box-shadow: 0 10px 30px rgba(255, 63, 180, 0.28);
-      transition: transform 0.15s ease, opacity 0.15s ease;
+      box-shadow: var(--shadow);
+      transition: transform .15s ease, opacity .15s ease;
     }
 
-    .main-button:hover {
+    .run-btn:hover {
       transform: translateY(-1px);
-      opacity: 0.96;
+      opacity: .96;
     }
 
-    .main-button:disabled {
-      opacity: 0.65;
+    .run-btn:disabled {
       cursor: not-allowed;
+      opacity: .7;
       transform: none;
     }
 
-    .helper {
-      margin-top: 16px;
-      color: #c9c9c9;
+    .mode-wrap {
+      position: relative;
+    }
+
+    .mode-btn {
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      border-radius: 16px;
+      padding: 14px 16px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      min-width: 150px;
+    }
+
+    .mode-menu {
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 0;
+      width: 260px;
+      background: rgba(12, 12, 18, 0.96);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 18px;
+      padding: 10px;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.34);
+      display: none;
+      z-index: 10;
+    }
+
+    .mode-menu.open {
+      display: block;
+    }
+
+    .mode-item {
+      width: 100%;
+      text-align: left;
+      border: none;
+      background: transparent;
+      color: #fff;
+      padding: 12px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .mode-item:hover,
+    .mode-item.active {
+      background: rgba(255,255,255,0.08);
+    }
+
+    .mode-label {
+      margin-top: 14px;
+      color: var(--muted-2);
       font-size: 14px;
       line-height: 1.8;
     }
 
+    .status {
+      font-size: 14px;
+      margin-bottom: 12px;
+      color: #ffd2f3;
+    }
+
     .output {
-      min-height: 140px;
+      min-height: 160px;
       font-size: 16px;
-      line-height: 1.9;
-      color: #f5f5f5;
-      white-space: normal;
+      line-height: 1.95;
+      color: #f7f7fb;
       word-break: break-word;
     }
 
     .output h2 {
-      font-size: 19px;
+      font-size: 20px;
       margin: 18px 0 8px;
-      color: #ffffff;
+      color: #fff;
     }
 
     .output p {
       margin: 0 0 12px;
-      color: #f0f0f0;
     }
 
     .output ul {
@@ -143,53 +247,58 @@
       margin-bottom: 8px;
     }
 
-    .status {
-      font-size: 14px;
-      color: #f7c1e8;
-      margin-bottom: 12px;
-    }
-
     .error {
-      color: #ff9ea8;
+      color: #ff9ab1;
       font-weight: 700;
     }
 
-    .contact {
+    .footer {
       text-align: center;
-      color: #cbcbcb;
+      color: var(--muted-2);
       font-size: 14px;
       line-height: 1.8;
-      margin-top: 8px;
+      padding-bottom: 14px;
     }
 
-    .contact a {
-      color: #ff62cf;
+    .footer a {
+      color: #ff73dc;
       text-decoration: none;
     }
 
-    .muted {
-      color: #a8a8a8;
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 13px;
+      color: #fff;
     }
 
     @media (max-width: 640px) {
-      body {
-        padding: 14px;
-      }
-
-      .card {
-        padding: 18px;
-        border-radius: 20px;
-      }
-
       .title {
-        font-size: 20px;
+        font-size: 26px;
       }
 
-      .section-title {
-        font-size: 18px;
+      .run-btn,
+      .mode-btn {
+        width: 100%;
       }
 
-      .main-button {
+      .mode-wrap {
+        width: 100%;
+      }
+
+      .mode-menu {
         width: 100%;
       }
     }
@@ -198,45 +307,105 @@
 <body>
   <div class="container">
 
-    <div class="card">
-      <div class="title">Q-System</div>
-      <div class="subtitle">
-        Human signal translation system<br>
-        แปลความรู้สึก ความคิดดิบ และสิ่งที่ยังไม่เป็นคำ ให้เป็นโครงสร้างที่ใช้ได้จริง
+    <div class="card hero">
+      <div class="eyebrow">⚙️ Q-Core Interface</div>
+      <h1 class="title">Q-System 🤖✨</h1>
+      <p class="subtitle">
+        Human signal translation system สำหรับแปลง raw thought, emotional ambiguity,
+        intent fragments และ unstructured cognition ให้กลายเป็นคำตอบที่อ่านง่าย ใช้งานได้จริง
+        และพร้อมต่อยอดในโลกจริง 🧠🌍🚀
+      </p>
+
+      <div class="meta-row">
+        <div class="pill">Signal Translation 🔎</div>
+        <div class="pill">Reasoning Layer 🧩</div>
+        <div class="pill">Action Mapping 🚀</div>
+        <div class="pill">Human-readable Output 💬</div>
       </div>
     </div>
 
     <div class="card">
-      <div class="section-title">ทดลองใช้ระบบ 🧠</div>
+      <h2 class="section-title">ทดลองใช้ระบบ 🧠💬</h2>
 
       <textarea
         id="qInput"
-        placeholder="พิมพ์ความคิด ความรู้สึก ปัญหา ไอเดีย หรือสิ่งที่ยังไม่เป็นคำ..."
+        placeholder="พิมพ์ความคิดดิบ ความรู้สึกที่ยังไม่เป็นคำ ปัญหา ไอเดีย หรือสิ่งที่กำลังสับสนอยู่..."
       ></textarea>
 
-      <div class="single-action-wrap">
-        <button id="runBtn" class="main-button" onclick="runQSystem()">Run Q-System</button>
+      <div class="toolbar">
+        <button id="runBtn" class="run-btn" onclick="runQSystem()">Run Q-System 🚀</button>
+
+        <div class="mode-wrap">
+          <button class="mode-btn" id="modeBtn" onclick="toggleModeMenu()">
+            ⚙️ โหมด: <span id="currentModeLabel">Q-System</span>
+          </button>
+
+          <div class="mode-menu" id="modeMenu">
+            <button class="mode-item active" onclick="selectMode('q', 'Q-System', this)">
+              🎯 Q-System<br><span style="color:#9fa3b8;font-size:13px;">โหมดหลัก: จัดโครงความคิดให้ชัดและใช้ได้จริง</span>
+            </button>
+            <button class="mode-item" onclick="selectMode('deep', 'Deep Mode', this)">
+              🧠 Deep Mode<br><span style="color:#9fa3b8;font-size:13px;">วิเคราะห์ลึกขึ้น มองหลายชั้นมากขึ้น</span>
+            </button>
+            <button class="mode-item" onclick="selectMode('action', 'Action Mode', this)">
+              🚀 Action Mode<br><span style="color:#9fa3b8;font-size:13px;">เน้นขั้นถัดไปที่ทำได้จริงแบบตรงๆ</span>
+            </button>
+            <button class="mode-item" onclick="selectMode('translate', 'Translate Mode', this)">
+              🔎 Translate Mode<br><span style="color:#9fa3b8;font-size:13px;">แปลความคิดดิบให้เป็นภาษาที่เข้าใจง่าย</span>
+            </button>
+          </div>
+        </div>
       </div>
 
-      <div class="helper">
-        ตัวอย่าง: “ฉันมีไอเดียแต่ยังไม่รู้จะเริ่มยังไง”<br>
-        หรือ “ช่วยแปลสิ่งที่ฉันกำลังคิดให้เป็นขั้นตอนที่ทำได้จริง”
+      <div class="mode-label" id="modeDescription">
+        โหมดปัจจุบัน: จัดโครงความคิด ความรู้สึก และปัญหาให้อ่านง่าย ใช้งานได้จริง 🎯
       </div>
     </div>
 
     <div class="card">
-      <div class="section-title">ผลลัพธ์</div>
-      <div id="status" class="status muted">ระบบพร้อมใช้งาน</div>
+      <h2 class="section-title">ผลลัพธ์ 📋✨</h2>
+      <div id="status" class="status">ระบบพร้อมใช้งาน ✅</div>
       <div id="qOutput" class="output">ผลลัพธ์จาก Q-System จะขึ้นตรงนี้...</div>
     </div>
 
-    <div class="contact">
+    <div class="footer">
       For research, engineering, collaboration, or feedback:<br>
       <a href="mailto:Kiwchauat44@gmail.com">Kiwchauat44@gmail.com</a>
     </div>
   </div>
 
   <script>
+    let currentMode = "q";
+
+    const modeDescriptions = {
+      q: "โหมดปัจจุบัน: จัดโครงความคิด ความรู้สึก และปัญหาให้อ่านง่าย ใช้งานได้จริง 🎯",
+      deep: "โหมดปัจจุบัน: วิเคราะห์ลึกขึ้น มองหลายชั้น และเชื่อมความหมายมากขึ้น 🧠",
+      action: "โหมดปัจจุบัน: เน้นสิ่งที่ต้องทำต่อแบบตรง ชัด และลงมือได้จริง 🚀",
+      translate: "โหมดปัจจุบัน: แปลความคิดดิบหรือสิ่งที่ยังไม่เป็นคำ ให้เข้าใจง่ายขึ้น 🔎"
+    };
+
+    function toggleModeMenu() {
+      const menu = document.getElementById("modeMenu");
+      menu.classList.toggle("open");
+    }
+
+    function selectMode(mode, label, el) {
+      currentMode = mode;
+      document.getElementById("currentModeLabel").textContent = label;
+      document.getElementById("modeDescription").textContent = modeDescriptions[mode] || "";
+      document.getElementById("modeMenu").classList.remove("open");
+
+      document.querySelectorAll(".mode-item").forEach(item => item.classList.remove("active"));
+      if (el) el.classList.add("active");
+    }
+
+    document.addEventListener("click", function (e) {
+      const wrap = document.querySelector(".mode-wrap");
+      if (!wrap.contains(e.target)) {
+        document.getElementById("modeMenu").classList.remove("open");
+      }
+    });
+
     async function runQSystem() {
       const inputEl = document.getElementById("qInput");
       const outputEl = document.getElementById("qOutput");
@@ -246,14 +415,14 @@
       const message = inputEl.value.trim();
 
       if (!message) {
-        statusEl.innerHTML = '<span class="error">กรุณาพิมพ์ข้อความก่อน</span>';
+        statusEl.innerHTML = '<span class="error">กรุณาพิมพ์ข้อความก่อน ⚠️</span>';
         outputEl.innerHTML = "ยังไม่มีข้อมูลให้ประมวลผล";
         return;
       }
 
       runBtn.disabled = true;
-      runBtn.textContent = "กำลังประมวลผล...";
-      statusEl.textContent = "⏳ กำลังคิดและจัดโครงคำตอบ...";
+      runBtn.textContent = "กำลังประมวลผล... ⏳";
+      statusEl.textContent = "🧠 กำลังตีความสัญญาณและจัดโครงคำตอบ...";
       outputEl.innerHTML = "";
 
       try {
@@ -262,7 +431,10 @@
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({ message })
+          body: JSON.stringify({
+            message,
+            mode: currentMode
+          })
         });
 
         const data = await res.json();
@@ -276,18 +448,18 @@
       } catch (err) {
         statusEl.innerHTML = '<span class="error">❌ เกิดข้อผิดพลาด</span>';
         outputEl.innerHTML = `
-          <p class="error">ระบบยังตอบไม่ได้ในตอนนี้</p>
-          <p>สาเหตุที่เป็นไปได้:</p>
+          <p class="error">ระบบยังตอบไม่ได้ในตอนนี้ ⚠️</p>
+          <p>สิ่งที่เป็นไปได้:</p>
           <ul>
-            <li>ยังไม่ได้ใส่ API key ถูกต้อง</li>
-            <li>ยังไม่ได้ redeploy หลังเพิ่ม environment variable</li>
-            <li>ฟังก์ชัน Netlify มีปัญหา</li>
+            <li>API key ยังไม่ถูกต้อง 🔑</li>
+            <li>Netlify function ยังไม่อัปเดต 🛠️</li>
+            <li>ระบบ backend มีปัญหาชั่วคราว 🌐</li>
             <li>${escapeHtml(err.message)}</li>
           </ul>
         `;
       } finally {
         runBtn.disabled = false;
-        runBtn.textContent = "Run Q-System";
+        runBtn.textContent = "Run Q-System 🚀";
       }
     }
 
