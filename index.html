@@ -59,8 +59,8 @@
       content: "";
       position: absolute;
       inset: auto -60px -80px auto;
-      width: 240px;
-      height: 240px;
+      width: 260px;
+      height: 260px;
       border-radius: 999px;
       background: radial-gradient(circle, rgba(255,67,187,0.22), transparent 65%);
       pointer-events: none;
@@ -71,7 +71,7 @@
       align-items: center;
       gap: 8px;
       font-size: 12px;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--cyan);
       background: rgba(120,239,255,0.08);
@@ -90,7 +90,7 @@
 
     .subtitle {
       color: var(--muted);
-      line-height: 1.9;
+      line-height: 1.95;
       font-size: 16px;
       margin: 0;
     }
@@ -99,6 +99,25 @@
       font-size: 22px;
       font-weight: 900;
       margin: 0 0 14px;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 13px;
+      color: #fff;
     }
 
     textarea {
@@ -153,6 +172,65 @@
       transform: none;
     }
 
+    .mode-wrap {
+      position: relative;
+    }
+
+    .mode-btn {
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      border-radius: 16px;
+      padding: 14px 16px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      min-width: 185px;
+    }
+
+    .mode-menu {
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 0;
+      width: 320px;
+      background: rgba(12, 12, 18, 0.97);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 18px;
+      padding: 10px;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.34);
+      display: none;
+      z-index: 10;
+    }
+
+    .mode-menu.open {
+      display: block;
+    }
+
+    .mode-item {
+      width: 100%;
+      text-align: left;
+      border: none;
+      background: transparent;
+      color: #fff;
+      padding: 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .mode-item:hover,
+    .mode-item.active {
+      background: rgba(255,255,255,0.08);
+    }
+
+    .mode-description {
+      margin-top: 14px;
+      color: var(--muted-2);
+      font-size: 14px;
+      line-height: 1.85;
+    }
+
     .status {
       font-size: 14px;
       margin-bottom: 12px;
@@ -160,7 +238,7 @@
     }
 
     .output {
-      min-height: 200px;
+      min-height: 220px;
       font-size: 16px;
       line-height: 2;
       color: #f7f7fb;
@@ -169,7 +247,7 @@
 
     .output h2 {
       font-size: 21px;
-      margin: 22px 0 10px;
+      margin: 24px 0 10px;
       color: #fff;
       letter-spacing: 0.2px;
     }
@@ -186,10 +264,6 @@
 
     .output li {
       margin-bottom: 10px;
-    }
-
-    .output strong {
-      color: #fff;
     }
 
     .error {
@@ -219,20 +293,29 @@
 
     @media (max-width: 640px) {
       .title { font-size: 26px; }
-      .run-btn { width: 100%; }
+      .run-btn, .mode-btn { width: 100%; }
+      .mode-wrap { width: 100%; }
+      .mode-menu { width: 100%; }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="card hero">
-      <div class="eyebrow">⚙️ Q-Core Cognitive Interface</div>
+      <div class="eyebrow">⚙️ Q-CORE COGNITIVE INTERFACE</div>
       <h1 class="title">Q-System 🤖✨</h1>
       <p class="subtitle">
-        Human signal translation system สำหรับแปลง raw thought, emotional ambiguity,
-        latent intent, conceptual fragments และ unstructured cognition
-        ให้กลายเป็น deep structured output ที่อ่านง่ายและใช้ต่อได้จริง 🧠🌍🚀
+        Advanced human signal translation architecture for transforming raw thought,
+        emotional ambiguity, latent intent, and conceptual fragments into structured
+        cognition, interpretable reasoning, and actionable intelligence 🧠🌍🚀
       </p>
+
+      <div class="meta-row">
+        <div class="pill">Signal Extraction 🔎</div>
+        <div class="pill">Cognitive Architecture 🧠</div>
+        <div class="pill">Constraint Analysis 🌍</div>
+        <div class="pill">Execution Design 🚀</div>
+      </div>
     </div>
 
     <div class="card">
@@ -240,16 +323,48 @@
 
       <textarea
         id="qInput"
-        placeholder="พิมพ์ความคิดดิบ ความรู้สึกที่ยังไม่เป็นคำ ปัญหา ไอเดีย หรือสิ่งที่กำลังสับสนอยู่..."
+        placeholder="พิมพ์ความคิดดิบ ความลังเล ความรู้สึกที่ยังไม่เป็นคำ ปัญหา ไอเดีย หรือโจทย์ที่อยากให้ระบบช่วยแยกชั้น..."
       ></textarea>
 
       <div class="toolbar">
         <button id="runBtn" class="run-btn" onclick="runQSystem()">Run Q-System 🚀</button>
+
+        <div class="mode-wrap">
+          <button class="mode-btn" id="modeBtn" onclick="toggleModeMenu()">
+            ⚙️ Mode: <span id="currentModeLabel">Q-Core</span>
+          </button>
+
+          <div class="mode-menu" id="modeMenu">
+            <button class="mode-item active" onclick="selectMode('q', 'Q-Core', this)">
+              🎯 Q-Core
+              <div style="color:#9fa3b8;font-size:13px;">Balanced reasoning for general structured thinking</div>
+            </button>
+
+            <button class="mode-item" onclick="selectMode('deep', 'Deep Research', this)">
+              🧠 Deep Research
+              <div style="color:#9fa3b8;font-size:13px;">Research-style deep cognition and layered interpretation</div>
+            </button>
+
+            <button class="mode-item" onclick="selectMode('action', 'Action Design', this)">
+              🚀 Action Design
+              <div style="color:#9fa3b8;font-size:13px;">Execution-first planning, decisions, and next-step design</div>
+            </button>
+
+            <button class="mode-item" onclick="selectMode('translate', 'Signal Translate', this)">
+              🔎 Signal Translate
+              <div style="color:#9fa3b8;font-size:13px;">Translate intuition, ambiguity, and raw thought into usable language</div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mode-description" id="modeDescription">
+        Current mode: balanced cognitive structuring for everyday and strategic questions 🎯
       </div>
 
       <div class="helper">
         ตัวอย่าง: “ฉันมีไอเดียแต่ยังไม่รู้จะเริ่มยังไง”<br>
-        หรือ “ช่วยแปลสิ่งที่ฉันกำลังคิดให้เป็นโครงที่ชัดและลึกขึ้น”
+        หรือ “ช่วยแปลสิ่งที่ฉันกำลังคิดให้เป็นโครงสร้างที่ลึกและใช้ได้จริง”
       </div>
     </div>
 
@@ -266,6 +381,36 @@
   </div>
 
   <script>
+    let currentMode = "q";
+
+    const modeDescriptions = {
+      q: "Current mode: balanced cognitive structuring for everyday and strategic questions 🎯",
+      deep: "Current mode: deeper research-style interpretation, hidden pattern analysis, and layered reasoning 🧠",
+      action: "Current mode: execution-oriented response design with emphasis on next moves and real-world action 🚀",
+      translate: "Current mode: translation of vague intuition, emotional ambiguity, and raw thought into clear structure 🔎"
+    };
+
+    function toggleModeMenu() {
+      document.getElementById("modeMenu").classList.toggle("open");
+    }
+
+    function selectMode(mode, label, el) {
+      currentMode = mode;
+      document.getElementById("currentModeLabel").textContent = label;
+      document.getElementById("modeDescription").textContent = modeDescriptions[mode] || "";
+      document.getElementById("modeMenu").classList.remove("open");
+
+      document.querySelectorAll(".mode-item").forEach(item => item.classList.remove("active"));
+      el.classList.add("active");
+    }
+
+    document.addEventListener("click", function (e) {
+      const wrap = document.querySelector(".mode-wrap");
+      if (wrap && !wrap.contains(e.target)) {
+        document.getElementById("modeMenu").classList.remove("open");
+      }
+    });
+
     async function runQSystem() {
       const inputEl = document.getElementById("qInput");
       const outputEl = document.getElementById("qOutput");
@@ -282,16 +427,17 @@
 
       runBtn.disabled = true;
       runBtn.textContent = "กำลังประมวลผล... ⏳";
-      statusEl.textContent = "🧠 กำลังประมวลผลเชิงโครงสร้างและขยาย reasoning depth...";
+      statusEl.textContent = "🧠 กำลังรัน reasoning architecture และจัดโครงคำตอบ...";
       outputEl.innerHTML = "";
 
       try {
         const res = await fetch("/.netlify/functions/q", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ message })
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            message,
+            mode: currentMode
+          })
         });
 
         const data = await res.json();
