@@ -10,95 +10,102 @@
     }
 
     :root {
-      --bg-1: #05060d;
-      --bg-2: #0b0d18;
-      --card: rgba(15, 17, 32, 0.88);
-      --card-soft: rgba(255, 255, 255, 0.04);
-      --line: rgba(255, 255, 255, 0.08);
+      --bg-1: #040612;
+      --bg-2: #090d1d;
+      --card: rgba(11, 14, 30, 0.95);
+      --card-soft: rgba(255,255,255,0.03);
+      --line: rgba(255,255,255,0.08);
       --text: #f7f7fb;
       --muted: #c8c9d8;
       --pink-1: #ff00b8;
       --pink-2: #ff5fd2;
-      --pink-3: #ff93e8;
-      --blue-glow: rgba(0, 180, 255, 0.12);
-      --pink-glow: rgba(255, 0, 184, 0.18);
-      --success: #5ef2c0;
-      --warning: #ffd76a;
-      --danger: #ff7e98;
+      --pink-glow: rgba(255, 0, 184, 0.20);
+      --cyan-glow: rgba(0, 180, 255, 0.10);
+      --success: #39f7c3;
+      --danger: #ff5d78;
     }
 
     html, body {
       margin: 0;
       padding: 0;
       min-height: 100%;
+      font-family: "Georgia", "Times New Roman", serif;
+      color: var(--text);
       background:
         radial-gradient(circle at top, rgba(255, 0, 184, 0.14), transparent 24%),
         radial-gradient(circle at bottom, rgba(0, 180, 255, 0.10), transparent 22%),
-        linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 55%, #06070d 100%);
-      color: var(--text);
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 55%, #05070e 100%);
     }
 
     body {
-      padding: 24px 14px 40px;
+      padding: 18px 14px 40px;
     }
 
     .app {
-      max-width: 780px;
+      max-width: 760px;
       margin: 0 auto;
     }
 
     .hero {
-      margin-bottom: 18px;
       border-radius: 30px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
       border: 1px solid var(--line);
       padding: 18px;
-      box-shadow:
-        0 0 30px var(--pink-glow),
-        inset 0 0 0 1px rgba(255,255,255,0.02);
-      backdrop-filter: blur(8px);
+      box-shadow: 0 0 28px var(--pink-glow);
+      margin-bottom: 18px;
+      overflow: hidden;
     }
 
     .brand {
       width: 100%;
       text-align: center;
       padding: 14px 18px;
-      border-radius: 20px;
+      border-radius: 22px;
       background: linear-gradient(90deg, var(--pink-1), var(--pink-2));
-      color: white;
+      color: #fff;
       font-weight: 800;
-      font-size: 1.25rem;
-      letter-spacing: 0.4px;
-      box-shadow: 0 12px 30px rgba(255, 0, 184, 0.24);
+      font-size: 1.2rem;
+      letter-spacing: 0.3px;
+      box-shadow: 0 10px 24px rgba(255, 0, 184, 0.28);
+      margin-bottom: 16px;
+    }
+
+    .mode-banner {
+      text-align: center;
+      border-radius: 22px;
+      padding: 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      border: 1px solid var(--line);
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 800;
       margin-bottom: 14px;
     }
 
-    .top-note {
-      text-align: center;
+    .mode-text {
       color: var(--muted);
-      line-height: 1.7;
-      margin-bottom: 14px;
-      font-size: 0.96rem;
+      line-height: 1.8;
+      font-size: 1rem;
+      margin-bottom: 12px;
     }
 
     .mode-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
     }
 
     .mode-btn {
       border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025));
-      color: var(--text);
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      color: #fff;
       border-radius: 18px;
       padding: 14px 12px;
       cursor: pointer;
       text-align: left;
-      min-height: 74px;
+      min-height: 80px;
       transition: 0.2s ease;
-      font-size: 0.95rem;
+      font-size: 0.98rem;
       font-weight: 700;
     }
 
@@ -106,38 +113,37 @@
       display: block;
       margin-top: 6px;
       color: var(--muted);
-      font-size: 0.78rem;
-      line-height: 1.45;
+      font-size: 0.82rem;
+      line-height: 1.5;
       font-weight: 400;
     }
 
     .mode-btn.active,
     .mode-btn:hover {
-      border-color: rgba(255, 95, 210, 0.6);
-      transform: translateY(-1px);
-      box-shadow: 0 0 18px rgba(255, 0, 184, 0.14);
+      border-color: rgba(255,95,210,0.68);
+      box-shadow: 0 0 18px rgba(255,0,184,0.14);
       background: linear-gradient(180deg, rgba(255,0,184,0.16), rgba(255,255,255,0.03));
+      transform: translateY(-1px);
     }
 
     .card {
       margin-top: 18px;
       border-radius: 30px;
-      background: linear-gradient(180deg, rgba(13,15,28,0.96), rgba(10,12,22,0.94));
+      background: linear-gradient(180deg, rgba(12,14,28,0.98), rgba(8,10,22,0.96));
       border: 1px solid var(--line);
       padding: 22px 18px;
-      box-shadow: 0 0 24px rgba(0,0,0,0.22);
+      box-shadow: 0 0 24px rgba(0,0,0,0.28);
     }
 
     .section-title {
       margin: 0 0 16px;
-      font-size: 1.9rem;
+      font-size: 2rem;
       font-weight: 800;
-      color: white;
-      letter-spacing: 0.2px;
+      color: #fff;
     }
 
     .mode-line {
-      margin: 0 0 14px;
+      margin: 0 0 16px;
       color: var(--muted);
       line-height: 1.8;
       font-size: 1rem;
@@ -147,131 +153,116 @@
       width: 100%;
       min-height: 170px;
       resize: vertical;
-      border-radius: 22px;
+      border-radius: 24px;
       border: 1px solid rgba(255,255,255,0.10);
       background: rgba(255,255,255,0.03);
-      color: white;
+      color: #fff;
       padding: 18px 16px;
       font-size: 1rem;
-      line-height: 1.8;
+      line-height: 1.9;
       outline: none;
       box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
     }
 
     .textarea::placeholder {
-      color: #b6b8ca;
+      color: #b8b8c8;
     }
 
     .action-row {
       display: flex;
+      flex-direction: column;
       gap: 12px;
-      flex-wrap: wrap;
       margin-top: 16px;
     }
 
     .btn {
+      width: 100%;
       border: 0;
-      border-radius: 18px;
-      padding: 14px 20px;
+      border-radius: 22px;
+      padding: 18px 20px;
       cursor: pointer;
       font-size: 1rem;
       font-weight: 800;
       transition: 0.2s ease;
     }
 
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
     .btn-primary {
-      background: linear-gradient(90deg, var(--pink-1), var(--pink-2));
+      background: linear-gradient(90deg, var(--pink-1), #ff3fc6, var(--pink-2));
       color: white;
-      box-shadow: 0 10px 24px rgba(255, 0, 184, 0.26);
+      box-shadow: 0 12px 28px rgba(255, 0, 184, 0.30);
     }
 
     .btn-secondary {
-      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
-      color: white;
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      color: #fff;
       border: 1px solid var(--line);
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
     }
 
     .status-bar {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-top: 14px;
+      gap: 12px;
+      margin-top: 18px;
       color: var(--muted);
-      font-size: 0.93rem;
+      font-size: 0.95rem;
     }
 
     .dot {
-      width: 10px;
-      height: 10px;
+      width: 12px;
+      height: 12px;
       border-radius: 999px;
       background: var(--success);
-      box-shadow: 0 0 12px rgba(94, 242, 192, 0.5);
+      box-shadow: 0 0 12px rgba(57,247,195,0.55);
+      flex: 0 0 auto;
     }
 
     .output {
       margin-top: 18px;
-      border-radius: 24px;
+      border-radius: 26px;
       background: rgba(255,255,255,0.03);
       border: 1px solid var(--line);
-      padding: 18px 16px;
-      min-height: 220px;
+      padding: 20px 18px;
+      min-height: 250px;
       white-space: pre-wrap;
-      line-height: 1.95;
-      color: white;
+      line-height: 2;
+      color: #fff;
       font-size: 1rem;
     }
 
     .tips {
-      margin-top: 16px;
+      margin-top: 18px;
       color: var(--muted);
-      line-height: 1.75;
-      font-size: 0.96rem;
+      line-height: 1.85;
+      font-size: 1rem;
     }
 
     .tips strong {
-      color: white;
+      color: #fff;
     }
 
     .footer {
-      margin-top: 20px;
       text-align: center;
-      color: #d3c0d7;
-      font-size: 0.92rem;
+      margin-top: 22px;
+      color: #d9bfd1;
+      font-size: 0.98rem;
+      line-height: 1.7;
     }
 
     .footer strong {
-      color: var(--pink-3);
+      color: #ff7ddd;
     }
 
-    @media (max-width: 720px) {
-      .mode-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .section-title {
-        font-size: 1.7rem;
-      }
-    }
-
-    @media (max-width: 520px) {
+    @media (max-width: 640px) {
       .mode-grid {
         grid-template-columns: 1fr;
       }
 
-      .brand {
-        font-size: 1.1rem;
-      }
-
       .section-title {
-        font-size: 1.55rem;
-      }
-
-      .btn {
-        width: 100%;
+        font-size: 1.8rem;
       }
     }
   </style>
@@ -279,48 +270,52 @@
 <body>
   <div class="app">
     <section class="hero">
-      <div class="brand">Q-System ⚡ Smart Team Interface</div>
-      <div class="top-note">
-        ระบบ <strong>Q (คิว)</strong> คือ <strong>AI helper (ผู้ช่วยเอไอ)</strong> สำหรับถาม คิด สรุป วางแผน และอธิบายให้เข้าใจง่าย ✨
+      <div class="brand">Q-System ⚡ Smart Thinking Interface</div>
+
+      <div class="mode-banner" id="modeBanner">⚙️ Mode: Q-Core</div>
+
+      <div class="mode-text" id="modeText">
+        balanced mode (โหมดบาลานซ์) ชัด ฉลาด และเหมาะกับคำถามทั่วไป
       </div>
 
       <div class="mode-grid">
         <button class="mode-btn active" data-mode="core">
           ⚙️ Q-Core
-          <small>ตอบกลาง ๆ แบบฉลาด ชัด และใช้ได้จริง</small>
+          <small>ตอบกลาง ๆ ชัด ใช้ได้จริง</small>
         </button>
 
         <button class="mode-btn" data-mode="summary">
           📦 Q-Summary
-          <small>สรุปข้อความให้สั้น กระชับ และจับใจความ</small>
+          <small>สรุปให้สั้นและจับประเด็น</small>
         </button>
 
         <button class="mode-btn" data-mode="explain">
           💡 Q-Explain
-          <small>อธิบายเรื่องยากให้คนทั่วไปเข้าใจง่าย</small>
+          <small>อธิบายง่ายแบบคนทั่วไปเข้าใจ</small>
         </button>
 
         <button class="mode-btn" data-mode="plan">
           🧭 Q-Plan
-          <small>เปลี่ยนเป้าหมายให้เป็นแผนทีละขั้น</small>
+          <small>แปลงเป้าหมายเป็นแผนทีละขั้น</small>
         </button>
 
         <button class="mode-btn" data-mode="action">
           🚀 Q-Action
-          <small>เน้นคำตอบแบบลงมือทำได้ทันที</small>
+          <small>เน้นคำตอบพร้อมลงมือทำ</small>
         </button>
 
         <button class="mode-btn" data-mode="creative">
           ✨ Q-Creative
-          <small>ช่วยคิดชื่อ ไอเดีย และคอนเซปต์ใหม่</small>
+          <small>ช่วยคิดชื่อและไอเดียใหม่</small>
         </button>
       </div>
     </section>
 
     <section class="card">
       <h2 class="section-title">ถาม Q ได้เลย 🔥</h2>
+
       <p class="mode-line" id="modeDesc">
-        ตอนนี้อยู่ใน <strong>Q-Core (คิวคอร์)</strong> — โหมดตอบแบบบาลานซ์ ชัด ฉลาด และเหมาะกับคำถามทั่วไป
+        Q-Core (คิวคอร์) ชัด ฉลาด และเหมาะกับคำถามทั่วไป
       </p>
 
       <textarea
@@ -341,11 +336,11 @@
       </div>
 
       <div class="output" id="output">พร้อมตอบแล้วครับ ✨
-เลือกโหมด แล้วพิมพ์คำถามได้เลย</div>
+เลือก mode (โหมด) แล้วพิมพ์คำถามได้เลย</div>
 
       <div class="tips">
-        <strong>Tip (ทิป):</strong> ถ้าคำตอบอยากได้แบบไหน ให้เลือก <strong>mode (โหมด)</strong> ก่อนถาม  
-        เช่น สรุป = <strong>Q-Summary</strong>, อธิบายง่าย = <strong>Q-Explain</strong>, วางแผน = <strong>Q-Plan</strong>
+        <strong>Tip (ทิป):</strong> ถ้าคำตอบอยากได้แบบไหน ให้เลือก
+        <strong>mode (โหมด)</strong> ก่อนถาม เช่น สรุป = Q-Summary, อธิบายง่าย = Q-Explain, วางแผน = Q-Plan
       </div>
     </section>
 
@@ -357,6 +352,10 @@
   <script>
     let currentMode = "core";
 
+    const API_URL = "https://YOUR-NETLIFY-SITE.netlify.app/.netlify/functions/chat";
+
+    const modeBanner = document.getElementById("modeBanner");
+    const modeText = document.getElementById("modeText");
     const modeDesc = document.getElementById("modeDesc");
     const userInput = document.getElementById("userInput");
     const output = document.getElementById("output");
@@ -368,38 +367,44 @@
 
     const modeConfig = {
       core: {
-        label: "Q-Core (คิวคอร์)",
-        desc: "ตอนนี้อยู่ใน Q-Core (คิวคอร์) — โหมดตอบแบบบาลานซ์ ชัด ฉลาด และเหมาะกับคำถามทั่วไป",
+        banner: "⚙️ Mode: Q-Core",
+        text: "balanced mode (โหมดบาลานซ์) ชัด ฉลาด และเหมาะกับคำถามทั่วไป",
+        desc: "Q-Core (คิวคอร์) ชัด ฉลาด และเหมาะกับคำถามทั่วไป",
         placeholder: "เช่น ช่วยวางแผนเริ่มต้นขายของออนไลน์แบบงบน้อยให้หน่อย",
         example: "ฉันมีไอเดียเริ่มขายของออนไลน์ แต่ยังไม่รู้จะเริ่มยังไง ช่วยวางภาพรวมให้หน่อย"
       },
       summary: {
-        label: "Q-Summary (คิวซัมมารี)",
-        desc: "ตอนนี้อยู่ใน Q-Summary (คิวซัมมารี) — โหมดสรุปข้อความให้สั้น ชัด และเก็บประเด็นสำคัญ",
+        banner: "📦 Mode: Q-Summary",
+        text: "summary mode (โหมดสรุป) ย่อเนื้อหาให้สั้นและเก็บประเด็นสำคัญ",
+        desc: "Q-Summary (คิวซัมมารี) สรุปให้สั้น ชัด และเก็บประเด็นสำคัญ",
         placeholder: "เช่น ช่วยสรุปข้อความนี้ให้เหลือประเด็นสำคัญ",
         example: "ช่วยสรุปข้อดี ข้อเสีย และข้อควรระวังของการเปิดร้านกาแฟเล็ก ๆ ให้เข้าใจง่าย"
       },
       explain: {
-        label: "Q-Explain (คิวเอ็กซ์เพลน)",
-        desc: "ตอนนี้อยู่ใน Q-Explain (คิวเอ็กซ์เพลน) — โหมดอธิบายเรื่องยากให้เข้าใจง่ายแบบคนทั่วไปอ่านรู้เรื่อง",
+        banner: "💡 Mode: Q-Explain",
+        text: "explain mode (โหมดอธิบาย) แปลงเรื่องยากให้เข้าใจง่าย",
+        desc: "Q-Explain (คิวเอ็กซ์เพลน) อธิบายเรื่องยากให้คนทั่วไปเข้าใจง่าย",
         placeholder: "เช่น อธิบายการตลาดออนไลน์แบบคนเริ่มต้น",
         example: "อธิบายคำว่าแบรนด์ดิ้งแบบคนทั่วไปเข้าใจได้ใน 1 นาที"
       },
       plan: {
-        label: "Q-Plan (คิวแพลน)",
-        desc: "ตอนนี้อยู่ใน Q-Plan (คิวแพลน) — โหมดเปลี่ยนเป้าหมายหรือปัญหาให้เป็นแผนทีละขั้น",
+        banner: "🧭 Mode: Q-Plan",
+        text: "plan mode (โหมดวางแผน) เปลี่ยนเป้าหมายให้เป็นขั้นตอน",
+        desc: "Q-Plan (คิวแพลน) เปลี่ยนเป้าหมายหรือปัญหาให้เป็นแผนทีละขั้น",
         placeholder: "เช่น ช่วยวางแผนเปิดร้านเล็ก ๆ ใน 30 วัน",
         example: "ช่วยวางแผนเริ่มขายเสื้อผ้าออนไลน์แบบงบน้อยทีละขั้น"
       },
       action: {
-        label: "Q-Action (คิวแอ็กชัน)",
-        desc: "ตอนนี้อยู่ใน Q-Action (คิวแอ็กชัน) — โหมดตอบแบบเน้นลงมือทำจริงทันที",
+        banner: "🚀 Mode: Q-Action",
+        text: "action mode (โหมดลงมือทำ) เน้นขั้นตอนที่ทำได้ทันที",
+        desc: "Q-Action (คิวแอ็กชัน) เน้นคำตอบแบบพร้อมลงมือทำทันที",
         placeholder: "เช่น วันนี้ฉันควรเริ่มจากอะไร",
         example: "ถ้าฉันอยากเริ่มรับงานฟรีแลนซ์ออนไลน์ วันนี้ควรทำอะไรบ้าง"
       },
       creative: {
-        label: "Q-Creative (คิวครีเอทีฟ)",
-        desc: "ตอนนี้อยู่ใน Q-Creative (คิวครีเอทีฟ) — โหมดช่วยคิดชื่อ คอนเซปต์ และมุมใหม่แบบดูมีสไตล์",
+        banner: "✨ Mode: Q-Creative",
+        text: "creative mode (โหมดสร้างสรรค์) คิดชื่อ ไอเดีย และคอนเซปต์ใหม่",
+        desc: "Q-Creative (คิวครีเอทีฟ) ช่วยคิดชื่อ คอนเซปต์ และไอเดียใหม่",
         placeholder: "เช่น ช่วยคิดชื่อแบรนด์ให้ดูมินิมอลแต่จำง่าย",
         example: "ช่วยคิดชื่อร้านขนมโฮมเมดที่ดูอบอุ่น น่ารัก และจำง่าย"
       }
@@ -409,15 +414,16 @@
       currentMode = mode;
       const config = modeConfig[mode];
 
+      modeBanner.textContent = config.banner;
+      modeText.textContent = config.text;
       modeDesc.textContent = config.desc;
       userInput.placeholder = config.placeholder;
-      statusText.textContent = "Mode changed (เปลี่ยนโหมดแล้ว): " + config.label;
 
       modeButtons.forEach((btn) => {
         btn.classList.toggle("active", btn.dataset.mode === mode);
       });
 
-      output.textContent = "เปลี่ยนเป็น " + config.label + " แล้ว ✅\nพิมพ์คำถามได้เลย หรือกดปุ่มใส่ตัวอย่าง";
+      statusText.textContent = "Mode changed (เปลี่ยนโหมดแล้ว)";
     }
 
     async function askQ() {
@@ -431,12 +437,11 @@
 
       output.textContent = "Q กำลังคิดให้อยู่... ⏳";
       statusText.textContent = "Thinking (กำลังประมวลผล)";
-
       sendBtn.disabled = true;
       sendBtn.textContent = "กำลังส่ง...";
 
       try {
-        const res = await fetch("/.netlify/functions/chat", {
+        const res = await fetch(API_URL, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -447,7 +452,16 @@
           })
         });
 
-        const data = await res.json();
+        const raw = await res.text();
+
+        let data;
+        try {
+          data = JSON.parse(raw);
+        } catch (e) {
+          output.textContent = "❌ ระบบส่งค่ากลับไม่ใช่ JSON\n\n" + raw;
+          statusText.textContent = "Bad response (ข้อมูลผิดรูปแบบ)";
+          return;
+        }
 
         if (!res.ok) {
           output.textContent = "❌ เกิดข้อผิดพลาด\n" + (data.error || "ระบบมีปัญหา");
@@ -467,16 +481,14 @@
     }
 
     modeButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        setMode(btn.dataset.mode);
-      });
+      btn.addEventListener("click", () => setMode(btn.dataset.mode));
     });
 
     sendBtn.addEventListener("click", askQ);
 
     exampleBtn.addEventListener("click", () => {
       userInput.value = modeConfig[currentMode].example;
-      output.textContent = "ใส่ตัวอย่างของ " + modeConfig[currentMode].label + " ให้แล้ว ✅\nกด “ส่งเข้า Q” ได้เลย";
+      output.textContent = "ใส่ตัวอย่างให้แล้ว ✅\nกด “ส่งเข้า Q” ได้เลย";
       statusText.textContent = "Example loaded (ใส่ตัวอย่างแล้ว)";
     });
 
