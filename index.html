@@ -9,233 +9,269 @@
       box-sizing: border-box;
     }
 
-    body {
+    :root {
+      --bg-1: #05060d;
+      --bg-2: #0b0d18;
+      --card: rgba(15, 17, 32, 0.88);
+      --card-soft: rgba(255, 255, 255, 0.04);
+      --line: rgba(255, 255, 255, 0.08);
+      --text: #f7f7fb;
+      --muted: #c8c9d8;
+      --pink-1: #ff00b8;
+      --pink-2: #ff5fd2;
+      --pink-3: #ff93e8;
+      --blue-glow: rgba(0, 180, 255, 0.12);
+      --pink-glow: rgba(255, 0, 184, 0.18);
+      --success: #5ef2c0;
+      --warning: #ffd76a;
+      --danger: #ff7e98;
+    }
+
+    html, body {
       margin: 0;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      padding: 0;
+      min-height: 100%;
       background:
-        radial-gradient(circle at top, rgba(255, 0, 170, 0.18), transparent 25%),
-        radial-gradient(circle at bottom, rgba(0, 200, 255, 0.1), transparent 20%),
-        linear-gradient(180deg, #06060a 0%, #090915 45%, #05050a 100%);
-      color: #f5f5f7;
-      min-height: 100vh;
+        radial-gradient(circle at top, rgba(255, 0, 184, 0.14), transparent 24%),
+        radial-gradient(circle at bottom, rgba(0, 180, 255, 0.10), transparent 22%),
+        linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 55%, #06070d 100%);
+      color: var(--text);
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
       padding: 24px 14px 40px;
     }
 
     .app {
-      max-width: 760px;
+      max-width: 780px;
       margin: 0 auto;
     }
 
     .hero {
+      margin-bottom: 18px;
+      border-radius: 30px;
       background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 28px;
-      padding: 22px 18px;
-      box-shadow: 0 0 30px rgba(255, 0, 153, 0.08);
+      border: 1px solid var(--line);
+      padding: 18px;
+      box-shadow:
+        0 0 30px var(--pink-glow),
+        inset 0 0 0 1px rgba(255,255,255,0.02);
       backdrop-filter: blur(8px);
     }
 
     .brand {
-      display: inline-block;
       width: 100%;
       text-align: center;
-      margin-bottom: 18px;
       padding: 14px 18px;
       border-radius: 20px;
-      background: linear-gradient(90deg, #ff2fb9, #ff6bd6);
-      color: #fff;
-      font-size: 1.35rem;
+      background: linear-gradient(90deg, var(--pink-1), var(--pink-2));
+      color: white;
       font-weight: 800;
-      letter-spacing: 0.5px;
-      box-shadow: 0 6px 26px rgba(255, 47, 185, 0.35);
+      font-size: 1.25rem;
+      letter-spacing: 0.4px;
+      box-shadow: 0 12px 30px rgba(255, 0, 184, 0.24);
+      margin-bottom: 14px;
     }
 
-    .mode-banner {
-      margin: 0 0 18px;
-      padding: 16px;
-      border-radius: 22px;
+    .top-note {
       text-align: center;
-      font-size: 1.15rem;
-      font-weight: 800;
-      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025));
-      border: 1px solid rgba(255,255,255,0.08);
-      color: #fefefe;
-    }
-
-    .subtext {
-      color: #d9d9e5;
-      line-height: 1.8;
-      font-size: 1rem;
-      margin-bottom: 18px;
-    }
-
-    .subtext strong {
-      color: #ffffff;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 14px;
+      font-size: 0.96rem;
     }
 
     .mode-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-bottom: 18px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
     }
 
     .mode-btn {
-      border: 1px solid rgba(255,255,255,0.09);
+      border: 1px solid var(--line);
       background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025));
-      color: #fff;
+      color: var(--text);
       border-radius: 18px;
       padding: 14px 12px;
       cursor: pointer;
-      font-size: 0.98rem;
-      font-weight: 700;
-      transition: 0.2s ease;
       text-align: left;
-      min-height: 78px;
-    }
-
-    .mode-btn:hover,
-    .mode-btn.active {
-      transform: translateY(-1px);
-      border-color: rgba(255, 75, 195, 0.65);
-      box-shadow: 0 0 18px rgba(255, 0, 153, 0.16);
-      background: linear-gradient(180deg, rgba(255, 40, 175, 0.14), rgba(255,255,255,0.035));
+      min-height: 74px;
+      transition: 0.2s ease;
+      font-size: 0.95rem;
+      font-weight: 700;
     }
 
     .mode-btn small {
       display: block;
-      color: #c7c7d6;
-      font-weight: 400;
       margin-top: 6px;
-      line-height: 1.5;
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.45;
+      font-weight: 400;
+    }
+
+    .mode-btn.active,
+    .mode-btn:hover {
+      border-color: rgba(255, 95, 210, 0.6);
+      transform: translateY(-1px);
+      box-shadow: 0 0 18px rgba(255, 0, 184, 0.14);
+      background: linear-gradient(180deg, rgba(255,0,184,0.16), rgba(255,255,255,0.03));
     }
 
     .card {
       margin-top: 18px;
-      background: linear-gradient(180deg, rgba(14,14,24,0.96), rgba(10,10,18,0.92));
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 28px;
+      border-radius: 30px;
+      background: linear-gradient(180deg, rgba(13,15,28,0.96), rgba(10,12,22,0.94));
+      border: 1px solid var(--line);
       padding: 22px 18px;
-      box-shadow: 0 0 24px rgba(0,0,0,0.28);
+      box-shadow: 0 0 24px rgba(0,0,0,0.22);
     }
 
-    .card h2 {
+    .section-title {
+      margin: 0 0 16px;
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: white;
+      letter-spacing: 0.2px;
+    }
+
+    .mode-line {
       margin: 0 0 14px;
-      font-size: 1.7rem;
-      color: #fff;
-    }
-
-    .card p,
-    .card li {
-      color: #e4e4ef;
+      color: var(--muted);
       line-height: 1.8;
       font-size: 1rem;
     }
 
-    .card ul {
-      margin: 10px 0 0 20px;
-      padding: 0;
-    }
-
-    .input-wrap {
-      margin-top: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    textarea {
+    .textarea {
       width: 100%;
-      min-height: 118px;
+      min-height: 170px;
       resize: vertical;
-      border: 1px solid rgba(255,255,255,0.1);
-      background: rgba(255,255,255,0.04);
-      color: #fff;
-      border-radius: 20px;
-      padding: 16px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.03);
+      color: white;
+      padding: 18px 16px;
       font-size: 1rem;
+      line-height: 1.8;
       outline: none;
-      line-height: 1.7;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
     }
 
-    textarea::placeholder {
-      color: #b8b8c8;
+    .textarea::placeholder {
+      color: #b6b8ca;
     }
 
     .action-row {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       flex-wrap: wrap;
+      margin-top: 16px;
     }
 
-    .primary-btn,
-    .ghost-btn {
+    .btn {
       border: 0;
-      border-radius: 16px;
-      padding: 14px 18px;
-      font-size: 0.98rem;
-      font-weight: 800;
+      border-radius: 18px;
+      padding: 14px 20px;
       cursor: pointer;
+      font-size: 1rem;
+      font-weight: 800;
+      transition: 0.2s ease;
     }
 
-    .primary-btn {
-      background: linear-gradient(90deg, #ff2fb9, #ff6bd6);
+    .btn-primary {
+      background: linear-gradient(90deg, var(--pink-1), var(--pink-2));
       color: white;
-      box-shadow: 0 6px 22px rgba(255, 47, 185, 0.3);
+      box-shadow: 0 10px 24px rgba(255, 0, 184, 0.26);
     }
 
-    .ghost-btn {
-      background: rgba(255,255,255,0.06);
-      color: #f4f4fb;
-      border: 1px solid rgba(255,255,255,0.08);
+    .btn-secondary {
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      color: white;
+      border: 1px solid var(--line);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .status-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--success);
+      box-shadow: 0 0 12px rgba(94, 242, 192, 0.5);
     }
 
     .output {
       margin-top: 18px;
-      padding: 18px;
-      border-radius: 22px;
-      background: rgba(255,255,255,0.035);
-      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--line);
+      padding: 18px 16px;
+      min-height: 220px;
       white-space: pre-wrap;
-      line-height: 1.85;
-      color: #ffffff;
-      min-height: 140px;
+      line-height: 1.95;
+      color: white;
+      font-size: 1rem;
     }
 
-    .tag {
-      display: inline-block;
-      margin-top: 8px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255, 47, 185, 0.14);
-      border: 1px solid rgba(255, 47, 185, 0.22);
-      color: #ffd1f1;
-      font-size: 0.88rem;
-      font-weight: 700;
-    }
-
-    .footer {
-      text-align: center;
-      margin-top: 22px;
-      color: #d4b4ca;
+    .tips {
+      margin-top: 16px;
+      color: var(--muted);
+      line-height: 1.75;
       font-size: 0.96rem;
     }
 
-    .footer strong {
-      color: #ff7adf;
+    .tips strong {
+      color: white;
     }
 
-    @media (max-width: 640px) {
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      color: #d3c0d7;
+      font-size: 0.92rem;
+    }
+
+    .footer strong {
+      color: var(--pink-3);
+    }
+
+    @media (max-width: 720px) {
+      .mode-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .section-title {
+        font-size: 1.7rem;
+      }
+    }
+
+    @media (max-width: 520px) {
       .mode-grid {
         grid-template-columns: 1fr;
       }
 
-      .card h2 {
-        font-size: 1.4rem;
+      .brand {
+        font-size: 1.1rem;
       }
 
-      .brand {
-        font-size: 1.15rem;
+      .section-title {
+        font-size: 1.55rem;
+      }
+
+      .btn {
+        width: 100%;
       }
     }
   </style>
@@ -243,140 +279,129 @@
 <body>
   <div class="app">
     <section class="hero">
-      <div class="brand">Q-System ⚡ Smart Thinking Interface</div>
-
-      <div class="mode-banner" id="modeBanner">⚙️ Mode: Q-Core</div>
-
-      <div class="subtext" id="modeDesc">
-        <strong>Q-Core</strong> คือโหมดช่วยคิด ช่วยสรุป และช่วยจัดคำตอบให้อ่านง่าย  
-        เหมาะกับคำถามทั่วไป ไอเดียที่ยังไม่ชัด และเรื่องที่อยากแปลงให้เป็นคำตอบที่ใช้ต่อได้จริง 🎯
+      <div class="brand">Q-System ⚡ Smart Team Interface</div>
+      <div class="top-note">
+        ระบบ <strong>Q (คิว)</strong> คือ <strong>AI helper (ผู้ช่วยเอไอ)</strong> สำหรับถาม คิด สรุป วางแผน และอธิบายให้เข้าใจง่าย ✨
       </div>
 
       <div class="mode-grid">
         <button class="mode-btn active" data-mode="core">
           ⚙️ Q-Core
-          <small>โหมดกลางสำหรับคิด จัดระเบียบ และตอบแบบบาลานซ์</small>
+          <small>ตอบกลาง ๆ แบบฉลาด ชัด และใช้ได้จริง</small>
         </button>
 
         <button class="mode-btn" data-mode="summary">
           📦 Q-Summary
-          <small>สรุปข้อความให้สั้น ชัด และหยิบประเด็นสำคัญออกมา</small>
+          <small>สรุปข้อความให้สั้น กระชับ และจับใจความ</small>
         </button>
 
         <button class="mode-btn" data-mode="explain">
           💡 Q-Explain
-          <small>อธิบายเรื่องยากให้คนทั่วไปเข้าใจง่ายแบบไม่งง</small>
+          <small>อธิบายเรื่องยากให้คนทั่วไปเข้าใจง่าย</small>
         </button>
 
         <button class="mode-btn" data-mode="plan">
           🧭 Q-Plan
-          <small>แปลงไอเดียหรือปัญหาให้เป็นแผนทีละขั้น</small>
+          <small>เปลี่ยนเป้าหมายให้เป็นแผนทีละขั้น</small>
         </button>
 
         <button class="mode-btn" data-mode="action">
           🚀 Q-Action
-          <small>ตอบแบบเอาไปลงมือทำต่อได้ทันที</small>
+          <small>เน้นคำตอบแบบลงมือทำได้ทันที</small>
         </button>
 
         <button class="mode-btn" data-mode="creative">
           ✨ Q-Creative
-          <small>ช่วยคิดชื่อ คอนเซปต์ และมุมใหม่แบบดูมีสไตล์</small>
+          <small>ช่วยคิดชื่อ ไอเดีย และคอนเซปต์ใหม่</small>
         </button>
       </div>
     </section>
 
     <section class="card">
-      <h2>Q ใช้ทำอะไรได้บ้าง 📋✨</h2>
-      <ul>
-        <li>สรุปข้อความยาวให้สั้นลงแบบจับใจความได้</li>
-        <li>อธิบายเรื่องยากให้เข้าใจง่ายขึ้น</li>
-        <li>ช่วยจัดไอเดียให้เป็นลำดับที่ชัด</li>
-        <li>ช่วยวางแผนแบบทีละขั้นตอน</li>
-        <li>ช่วยตอบให้ดูเป็นระบบ อ่านแล้วเอาไปใช้ต่อได้</li>
-        <li>เปลี่ยนโหมดแล้วแนวคำตอบจะต่างกันจริง</li>
-      </ul>
-      <div class="tag" id="modeTag">Current vibe: Balanced thinking</div>
-    </section>
+      <h2 class="section-title">ถาม Q ได้เลย 🔥</h2>
+      <p class="mode-line" id="modeDesc">
+        ตอนนี้อยู่ใน <strong>Q-Core (คิวคอร์)</strong> — โหมดตอบแบบบาลานซ์ ชัด ฉลาด และเหมาะกับคำถามทั่วไป
+      </p>
 
-    <section class="card">
-      <h2>ลองถาม Q ได้เลย 🔥</h2>
+      <textarea
+        id="userInput"
+        class="textarea"
+        placeholder="เช่น ช่วยวางแผนเริ่มต้นขายของออนไลน์แบบงบน้อยให้หน่อย"
+      ></textarea>
 
-      <div class="input-wrap">
-        <textarea
-          id="userInput"
-          placeholder="พิมพ์คำถาม เช่น ช่วยวางแผนเริ่มต้นขายของออนไลน์ให้หน่อย"
-        ></textarea>
-
-        <div class="action-row">
-          <button class="primary-btn" id="sendBtn">ส่งเข้า Q</button>
-          <button class="ghost-btn" id="exampleBtn">ใส่ตัวอย่าง</button>
-          <button class="ghost-btn" id="clearBtn">ล้างข้อความ</button>
-        </div>
+      <div class="action-row">
+        <button class="btn btn-primary" id="sendBtn">ส่งเข้า Q</button>
+        <button class="btn btn-secondary" id="exampleBtn">ใส่ตัวอย่าง</button>
+        <button class="btn btn-secondary" id="clearBtn">ล้างข้อความ</button>
       </div>
 
-      <div class="output" id="output">
-พร้อมทำงานครับ ✨  
-เลือกโหมดด้านบน แล้วพิมพ์สิ่งที่อยากให้ Q ช่วยได้เลย
+      <div class="status-bar">
+        <span class="dot"></span>
+        <span id="statusText">Ready (พร้อมใช้งาน)</span>
+      </div>
+
+      <div class="output" id="output">พร้อมตอบแล้วครับ ✨
+เลือกโหมด แล้วพิมพ์คำถามได้เลย</div>
+
+      <div class="tips">
+        <strong>Tip (ทิป):</strong> ถ้าคำตอบอยากได้แบบไหน ให้เลือก <strong>mode (โหมด)</strong> ก่อนถาม  
+        เช่น สรุป = <strong>Q-Summary</strong>, อธิบายง่าย = <strong>Q-Explain</strong>, วางแผน = <strong>Q-Plan</strong>
       </div>
     </section>
 
     <div class="footer">
-      Built with <strong>Q-System</strong> • UI เดิมแนวมืดนีออน • พร้อมต่อยอดเป็น API ได้ภายหลัง
+      Built with <strong>Q-System</strong> • Connected to <strong>Netlify Function</strong> • Ready for <strong>free AI API</strong>
     </div>
   </div>
 
   <script>
-    const modeBanner = document.getElementById("modeBanner");
+    let currentMode = "core";
+
     const modeDesc = document.getElementById("modeDesc");
-    const modeTag = document.getElementById("modeTag");
     const userInput = document.getElementById("userInput");
     const output = document.getElementById("output");
+    const statusText = document.getElementById("statusText");
+    const sendBtn = document.getElementById("sendBtn");
+    const exampleBtn = document.getElementById("exampleBtn");
+    const clearBtn = document.getElementById("clearBtn");
     const modeButtons = document.querySelectorAll(".mode-btn");
-
-    let currentMode = "core";
 
     const modeConfig = {
       core: {
-        title: "⚙️ Mode: Q-Core",
-        desc: "Q-Core คือโหมดช่วยคิด ช่วยสรุป และช่วยจัดคำตอบให้อ่านง่าย เหมาะกับคำถามทั่วไป ไอเดียที่ยังไม่ชัด และเรื่องที่อยากแปลงให้เป็นคำตอบที่ใช้ต่อได้จริง 🎯",
-        tag: "Current vibe: Balanced thinking",
-        placeholder: "เช่น ฉันมีไอเดียธุรกิจแต่ยังไม่รู้จะเริ่มยังไง",
-        example: "ฉันมีไอเดียทำเพจขายของออนไลน์ แต่ยังไม่รู้จะเริ่มยังไง",
+        label: "Q-Core (คิวคอร์)",
+        desc: "ตอนนี้อยู่ใน Q-Core (คิวคอร์) — โหมดตอบแบบบาลานซ์ ชัด ฉลาด และเหมาะกับคำถามทั่วไป",
+        placeholder: "เช่น ช่วยวางแผนเริ่มต้นขายของออนไลน์แบบงบน้อยให้หน่อย",
+        example: "ฉันมีไอเดียเริ่มขายของออนไลน์ แต่ยังไม่รู้จะเริ่มยังไง ช่วยวางภาพรวมให้หน่อย"
       },
       summary: {
-        title: "📦 Mode: Q-Summary",
-        desc: "Q-Summary คือโหมดสรุปเนื้อหาให้กระชับขึ้น เหมาะกับข้อความยาว บทความ โน้ต หรือข้อมูลที่อยากจับประเด็นให้เร็ว ⚡",
-        tag: "Current vibe: Clean summary mode",
+        label: "Q-Summary (คิวซัมมารี)",
+        desc: "ตอนนี้อยู่ใน Q-Summary (คิวซัมมารี) — โหมดสรุปข้อความให้สั้น ชัด และเก็บประเด็นสำคัญ",
         placeholder: "เช่น ช่วยสรุปข้อความนี้ให้เหลือประเด็นสำคัญ",
-        example: "ช่วยสรุปข้อดีและข้อควรระวังของการเปิดร้านกาแฟเล็ก ๆ ให้เข้าใจง่าย",
+        example: "ช่วยสรุปข้อดี ข้อเสีย และข้อควรระวังของการเปิดร้านกาแฟเล็ก ๆ ให้เข้าใจง่าย"
       },
       explain: {
-        title: "💡 Mode: Q-Explain",
-        desc: "Q-Explain คือโหมดอธิบายเรื่องซับซ้อนให้เข้าใจง่าย เหมาะกับเรื่องเรียน เรื่องงาน หรือแนวคิดที่ฟังแล้วงง 🧠",
-        tag: "Current vibe: Easy explanation mode",
+        label: "Q-Explain (คิวเอ็กซ์เพลน)",
+        desc: "ตอนนี้อยู่ใน Q-Explain (คิวเอ็กซ์เพลน) — โหมดอธิบายเรื่องยากให้เข้าใจง่ายแบบคนทั่วไปอ่านรู้เรื่อง",
         placeholder: "เช่น อธิบายการตลาดออนไลน์แบบคนเริ่มต้น",
-        example: "อธิบายคำว่าแบรนด์ดิ้งแบบคนทั่วไปเข้าใจได้ใน 1 นาที",
+        example: "อธิบายคำว่าแบรนด์ดิ้งแบบคนทั่วไปเข้าใจได้ใน 1 นาที"
       },
       plan: {
-        title: "🧭 Mode: Q-Plan",
-        desc: "Q-Plan คือโหมดวางแผน ช่วยแปลงเป้าหมายหรือปัญหาให้กลายเป็นขั้นตอนที่ทำตามได้จริง 📍",
-        tag: "Current vibe: Strategic planning mode",
+        label: "Q-Plan (คิวแพลน)",
+        desc: "ตอนนี้อยู่ใน Q-Plan (คิวแพลน) — โหมดเปลี่ยนเป้าหมายหรือปัญหาให้เป็นแผนทีละขั้น",
         placeholder: "เช่น ช่วยวางแผนเปิดร้านเล็ก ๆ ใน 30 วัน",
-        example: "ช่วยวางแผนเริ่มขายเสื้อผ้าออนไลน์แบบงบน้อยทีละขั้น",
+        example: "ช่วยวางแผนเริ่มขายเสื้อผ้าออนไลน์แบบงบน้อยทีละขั้น"
       },
       action: {
-        title: "🚀 Mode: Q-Action",
-        desc: "Q-Action คือโหมดตอบแบบพร้อมลงมือทำ เน้นสิ่งที่ต้องทำก่อน ทำหลัง และทำตอนนี้ เพื่อให้ขยับงานได้จริง 🔥",
-        tag: "Current vibe: Move-now execution mode",
-        placeholder: "เช่น บอกฉันว่าต้องทำอะไรวันนี้เลย",
-        example: "ถ้าฉันอยากเริ่มรับงานฟรีแลนซ์ออนไลน์ วันนี้ควรทำอะไรบ้าง",
+        label: "Q-Action (คิวแอ็กชัน)",
+        desc: "ตอนนี้อยู่ใน Q-Action (คิวแอ็กชัน) — โหมดตอบแบบเน้นลงมือทำจริงทันที",
+        placeholder: "เช่น วันนี้ฉันควรเริ่มจากอะไร",
+        example: "ถ้าฉันอยากเริ่มรับงานฟรีแลนซ์ออนไลน์ วันนี้ควรทำอะไรบ้าง"
       },
       creative: {
-        title: "✨ Mode: Q-Creative",
-        desc: "Q-Creative คือโหมดช่วยคิดมุมใหม่ ชื่อใหม่ และคอนเซปต์ใหม่ เหมาะกับงานที่อยากให้ดูมีสไตล์และน่าสนใจ 🎨",
-        tag: "Current vibe: Creative concept mode",
+        label: "Q-Creative (คิวครีเอทีฟ)",
+        desc: "ตอนนี้อยู่ใน Q-Creative (คิวครีเอทีฟ) — โหมดช่วยคิดชื่อ คอนเซปต์ และมุมใหม่แบบดูมีสไตล์",
         placeholder: "เช่น ช่วยคิดชื่อแบรนด์ให้ดูมินิมอลแต่จำง่าย",
-        example: "ช่วยคิดชื่อร้านขนมโฮมเมดที่ดูอบอุ่น น่ารัก และจำง่าย",
+        example: "ช่วยคิดชื่อร้านขนมโฮมเมดที่ดูอบอุ่น น่ารัก และจำง่าย"
       }
     };
 
@@ -384,188 +409,87 @@
       currentMode = mode;
       const config = modeConfig[mode];
 
-      modeBanner.textContent = config.title;
       modeDesc.textContent = config.desc;
-      modeTag.textContent = config.tag;
       userInput.placeholder = config.placeholder;
+      statusText.textContent = "Mode changed (เปลี่ยนโหมดแล้ว): " + config.label;
 
-      modeButtons.forEach(btn => {
+      modeButtons.forEach((btn) => {
         btn.classList.toggle("active", btn.dataset.mode === mode);
       });
 
-      output.textContent = `เปลี่ยนเป็น ${config.title} แล้ว ✅
-ตอนนี้แนวคำตอบจะเปลี่ยนตามโหมดนี้จริง
-ลองถามได้เลย เช่น:
-${config.example}`;
+      output.textContent = "เปลี่ยนเป็น " + config.label + " แล้ว ✅\nพิมพ์คำถามได้เลย หรือกดปุ่มใส่ตัวอย่าง";
     }
 
-    function formatCore(text) {
-      return `Q-Core Result ⚙️
+    async function askQ() {
+      const message = userInput.value.trim();
 
-สรุปภาพรวม:
-${text}
-
-มุมที่ควรโฟกัส:
-- เริ่มจากแยกเป้าหมายให้ชัดก่อน
-- ดูว่าต้องการคำตอบแบบสรุป อธิบาย หรือแผน
-- เลือกสิ่งที่ทำได้จริงก่อนสิ่งที่ดูใหญ่เกินไป
-
-คำแนะนำแบบใช้งานได้:
-1) เขียนสิ่งที่ต้องการจริง ๆ ออกมา 1 ประโยค
-2) แยกเป็นปัญหาหลักกับสิ่งที่ต้องทำ
-3) ลงมือจากขั้นที่เล็กที่สุดก่อน
-
-Next move:
-ถ้าอยากให้ลึกขึ้น ให้พิมพ์เพิ่มว่า “ช่วยแตกเป็นขั้นตอน”`;
-    }
-
-    function formatSummary(text) {
-      return `Q-Summary Result 📦
-
-สรุปสั้น:
-${text}
-
-ใจความสำคัญ:
-- ประเด็นหลักคือสิ่งที่ผู้ใช้ต้องการให้ชัดขึ้น
-- ควรตัดข้อมูลที่ฟุ้งออก แล้วเหลือเฉพาะแกน
-- ใช้คำสั้น อ่านเร็ว และหยิบไปใช้ต่อได้
-
-เวอร์ชันพร้อมใช้:
-เรื่องนี้ควรถูกย่อให้เหลือ “เป้าหมาย + สิ่งสำคัญ + สิ่งที่ควรทำต่อ”
-
-Quick close:
-ถ้าต้องการ ผมสามารถสรุปให้เหลือ 3 บรรทัดได้อีก`;
-    }
-
-    function formatExplain(text) {
-      return `Q-Explain Result 💡
-
-อธิบายแบบง่าย:
-${text}
-
-พูดให้เข้าใจง่ายคือ:
-เรื่องนี้ไม่ต้องมองให้ซับซ้อนเกินไป ให้คิดว่าเป็นการเอา “สิ่งที่อยากทำ” มาแปลงเป็น “วิธีที่ทำได้จริง”
-
-ตัวอย่างมุมเข้าใจ:
-- เป้าหมาย = อยากได้อะไร
-- วิธี = จะไปถึงยังไง
-- ขั้นแรก = ต้องเริ่มจากตรงไหน
-
-สรุปง่าย ๆ:
-เริ่มจากเข้าใจแกนของเรื่องก่อน แล้วค่อยลงรายละเอียด`;
-    }
-
-    function formatPlan(text) {
-      return `Q-Plan Result 🧭
-
-เป้าหมาย:
-${text}
-
-แผนทีละขั้น:
-1) ระบุสิ่งที่ต้องการให้ชัดที่สุด
-2) เช็กทรัพยากรที่มีตอนนี้
-3) แยกงานเป็นขั้นเล็ก ๆ
-4) เริ่มจากงานที่ทำได้ภายใน 1-3 วัน
-5) ทบทวนผลแล้วปรับแผน
-
-แผนเริ่มต้นแบบสั้น:
-- วันนี้: เขียนเป้าหมาย
-- พรุ่งนี้: เตรียมสิ่งที่ต้องใช้
-- หลังจากนั้น: เริ่มลงมือทีละส่วน
-
-Focus line:
-อย่าทำทุกอย่างพร้อมกัน ให้ชนะทีละขั้น`;
-    }
-
-    function formatAction(text) {
-      return `Q-Action Result 🚀
-
-ภารกิจตอนนี้:
-${text}
-
-ทำทันที:
-- เขียนสิ่งที่ต้องทำข้อแรก
-- ตัดสิ่งรบกวนที่ไม่จำเป็น
-- เริ่มจากงานที่เล็กแต่เห็นผลเร็ว
-
-เช็กลิสต์พร้อมลุย:
-[ ] รู้เป้าหมายชัด
-[ ] รู้ขั้นแรก
-[ ] เริ่มได้ภายในวันนี้
-
-คำสั่งลุย:
-หยุดคิดวน แล้วเริ่มจากข้อที่ง่ายที่สุดก่อน`;
-    }
-
-    function formatCreative(text) {
-      return `Q-Creative Result ✨
-
-แกนไอเดีย:
-${text}
-
-ทิศทางสร้างสรรค์:
-- ทำให้เรียบแต่จำง่าย
-- ให้มีบุคลิกชัด
-- ใช้คำที่ฟังแล้วมีภาพ
-
-แนวต่อยอด:
-1) เพิ่มอารมณ์ของแบรนด์
-2) เลือกโทนที่อยากให้คนรู้สึก
-3) คิดชื่อหรือคอนเซปต์ 3 แบบแล้วคัด
-
-Creative spark:
-งานที่ดีไม่ต้องซับซ้อน แค่ชัดและมีคาแรกเตอร์`;
-    }
-
-    function generateResponse(mode, text) {
-      const cleanText = text.trim();
-
-      if (!cleanText) {
-        return "กรุณาพิมพ์ข้อความก่อนครับ ✍️";
+      if (!message) {
+        output.textContent = "กรุณาพิมพ์คำถามก่อนครับ ✍️";
+        statusText.textContent = "Waiting input (รอข้อความ)";
+        return;
       }
 
-      switch (mode) {
-        case "summary":
-          return formatSummary(cleanText);
-        case "explain":
-          return formatExplain(cleanText);
-        case "plan":
-          return formatPlan(cleanText);
-        case "action":
-          return formatAction(cleanText);
-        case "creative":
-          return formatCreative(cleanText);
-        case "core":
-        default:
-          return formatCore(cleanText);
+      output.textContent = "Q กำลังคิดให้อยู่... ⏳";
+      statusText.textContent = "Thinking (กำลังประมวลผล)";
+
+      sendBtn.disabled = true;
+      sendBtn.textContent = "กำลังส่ง...";
+
+      try {
+        const res = await fetch("/.netlify/functions/chat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            message,
+            mode: currentMode
+          })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          output.textContent = "❌ เกิดข้อผิดพลาด\n" + (data.error || "ระบบมีปัญหา");
+          statusText.textContent = "Error (มีข้อผิดพลาด)";
+          return;
+        }
+
+        output.textContent = data.reply || "ยังไม่มีคำตอบจากระบบ";
+        statusText.textContent = "Done (ตอบแล้ว)";
+      } catch (error) {
+        output.textContent = "❌ เชื่อมต่อระบบไม่สำเร็จ\n" + error.message;
+        statusText.textContent = "Connection error (เชื่อมต่อไม่ได้)";
+      } finally {
+        sendBtn.disabled = false;
+        sendBtn.textContent = "ส่งเข้า Q";
       }
     }
 
-    modeButtons.forEach(btn => {
+    modeButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
         setMode(btn.dataset.mode);
       });
     });
 
-    document.getElementById("sendBtn").addEventListener("click", () => {
-      output.textContent = generateResponse(currentMode, userInput.value);
-    });
+    sendBtn.addEventListener("click", askQ);
 
-    document.getElementById("exampleBtn").addEventListener("click", () => {
+    exampleBtn.addEventListener("click", () => {
       userInput.value = modeConfig[currentMode].example;
-      output.textContent = `ใส่ตัวอย่างของ ${modeConfig[currentMode].title} ให้แล้ว ✅
-กด “ส่งเข้า Q” เพื่อดูแนวคำตอบต่างกันจริงได้เลย`;
+      output.textContent = "ใส่ตัวอย่างของ " + modeConfig[currentMode].label + " ให้แล้ว ✅\nกด “ส่งเข้า Q” ได้เลย";
+      statusText.textContent = "Example loaded (ใส่ตัวอย่างแล้ว)";
     });
 
-    document.getElementById("clearBtn").addEventListener("click", () => {
+    clearBtn.addEventListener("click", () => {
       userInput.value = "";
       output.textContent = "ล้างข้อความแล้วครับ 🧼\nพร้อมรับคำถามใหม่";
+      statusText.textContent = "Cleared (ล้างแล้ว)";
     });
 
     userInput.addEventListener("keydown", (e) => {
       if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();
-        output.textContent = generateResponse(currentMode, userInput.value);
+        askQ();
       }
     });
   </script>
